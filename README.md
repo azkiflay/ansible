@@ -1,7 +1,7 @@
 # Ansible
 Ansible is an open-source Configuration Management (CM) tool that orchestrates infrastructure such as virtual machines (VMs). Ansible is written in Python. While tools such as Vagrant and Terraform are Infrastructure as Code (IaC) systems, Ansible is widely adopted to manage the configuration of the infrastructure. Ansible uses Yet Another Markup Language (YAML) to describe the desired state of infrastructure, making Ansible have a *declarative* configuration style rather than *imperative* where the user specifies detailed description of the infrastructure.
 
-Unlike other CM systems, Ansible is agentless, it does not require a software agent to be installed on the managed servers. Ansible relies on Secure Shell (SSH) to push configuration to servers and make the desired changes.
+Unlike other CM systems, Ansible is agentless, it does not require a software agent to be installed on the managed servers. Ansible relies on Secure Shell (SSH) to push configuration to servers and make the desired changes. With SSH being the most secure method to connect to remote hosts, Ansible leverages SSH to configure a number of servers of the network.
 
 using Ansible (User and Group Mangement, Two-factor authentication over SSH, User security policy such as controlling user commands, Host-based Firewall Automation)
 # Ansible for Configuraiton Management
