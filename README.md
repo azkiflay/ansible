@@ -66,14 +66,22 @@ After ensuring the managed hosts can be accessed using a password-based authenti
 
 A passphrase is requested to access the private key (azkiflay) as shown in Figure 1. The password of the user account where the key pair were created is the passphrase.
 <p align="center">
-  <img src="figures/ssh-copy-id1.png" width="300" height="100"/>
+  <img src="figures/ssh_copy_id1.png" width="300" height="100"/>
 </p>
 <p align="center"><strong>Figure 1:</strong> Unlocking the private key </p>
 
 Following a successful entry of a passphrase, the public key of the Ansible controller is added to the remote host as depicted in Figure 2.
 <p align="center">
-  <img src="figures/ssh-copy-id2.png" width="300" height="200"/>
+  <img src="figures/ssh_copy_id2.png" width="300" height="200"/>
 </p>
 <p align="center"><strong>Figure 2:</strong> Transferring public key to a remote host </p>
+
+Therefore, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. As a result, the controller can access the remote host without a password, using the public key. As shown in Figure 3, when *ssh myname@192.168.0.10* is issued to access remote host, no prompt appears asking for a password.
+
+<p align="center">
+  <img src="figures/ssh_public_key_login.png" width="300" height="200"/>
+</p>
+<p align="center"><strong>Figure 3:</strong> Public key-based access to a remote host </p>
+
 
 # Adding your SSH public keys to authorized_keys file in each managed host.
