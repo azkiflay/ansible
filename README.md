@@ -74,6 +74,6 @@ Following a successful entry of a passphrase, the public key of the Ansible cont
 <p align="center">
   <img src="figures/ssh-copy-id2.png" width="300" height="200"/>
 </p>
-<p align="center"><strong>Figure 2:</strong> SSH connection to the VM </p>
+<p align="center"><strong>Figure 2:</strong> Transferring public key to a remote host </p>
 
 # Adding your SSH public keys to authorized_keys file in each managed host.
