@@ -64,12 +64,113 @@ Following a successful entry of a passphrase, the public key of the Ansible cont
 </p>
 <p align="center"><strong>Figure 2:</strong> Transferring public key to a remote host </p>
 
-Therefore, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. As a result, the controller can access the remote host without a password, using the public key. As shown in Figure 3, when *ssh myname@192.168.0.10* is issued to access remote host, no prompt appears asking for a password. Because the public key of the controller has now been added to the remote host's authorized_keys file. The presence of the public key at the remote host can be verified using *nano ~/.ssh/authorized_keys" by connecting to it. With regards to the private key, the clue is in the name. It should be kept private and secure at the controller, which uses it to decrypt messages from remote hosts.
+Therefore, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. As a result, the controller can access the remote host without a password, using the public key. As shown in Figure 3, when *ssh myname@192.168.0.10* is issued to access remote host, no prompt appears asking for a password. 
+```bash
+  ssh myname@192.168.0.10 
+  # ssh -p port_number myname@192.168.0.10 # If ssh is not running on the default port number 22
+  # ssh myname@192.168.0.10 command_to_run # To execute a single command on a remote system
+  # ssh -X myname@192.168.0.10 # If X11 forwarding is enabled on both local and remote systems
+  exit # Terminate the connection
+```
+
+The reason for the passwordless login is because the public key of the controller has now been added to the remote host's authorized_keys file. The presence of the public key at the remote host can be verified using *nano ~/.ssh/authorized_keys" by connecting to it. With regards to the private key, the clue is in the name. It should be kept private and secure at the controller, which uses it to decrypt messages from remote hosts.
 
 <p align="center">
   <img src="figures/ssh_public_key_login.png" width="300" height="200"/>
 </p>
 <p align="center"><strong>Figure 3:</strong> Public key-based access to a remote host </p>
+
+## SSH on Windows Hosts
+Configure the Windows host according to the following steps.
+* Run PowerShell as Administrator and Install OpenSSH Server:
+```bash
+  Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+```
+* Start and enable the SSH server:
+```bash
+  Start-Service sshd
+  Set-Service -Name sshd -StartupType 'Automatic'
+```
+
+* Allow SSH through the firewall:
+```bash
+  netsh advfirewall firewall add rule name="OpenSSH-Server-In-TCP" dir=in action=allow protocol=TCP localport=22
+```
+
+* Ensure password login is allowed (temporarily): Open and edit C:\ProgramData\ssh\sshd_config in a text editor (run as Administrator). Find (or add) the following.
+```bash
+  PasswordAuthentication yes
+  PubkeyAuthentication yes
+```
+
+Save and then restart the SSH service.
+```bash
+  Restart-Service sshd
+```
+Now you can connect with a username & password from your Unix host.
+
+On the Unix/Linux client (your server):
+* Copy the public key to Windows using *ssh-copy-id*.
+
+```bash
+  ssh-copy-id -i ~/.ssh/azkiflay.pub aklil@192.168.0.11 # Expected prompt --> aklil@192.168.0.11's password:
+```
+Enter your Windows user password, and it will automatically create *C:\Users\<username>\.ssh\authorized_keys* with the correct key contents.
+
+* Test key-based login:
+```bash
+`ssh aklil@192.168.0.11 # You should now log in without a password (if ssh-agent is running or your key has no passphrase).
+```
+
+Once key authentication is confirmed, you can go back to the Windows host and disable password logins for better security.
+To that end, open the file "C:\ProgramData\ssh\sshd_config", set PasswordAuthentication to *no*.
+```bash
+  PasswordAuthentication no
+```
+Restart the *sshd* service.
+
+All the above steps can be done in one go using a PowerShell script shown below.
+A PowerShell Setup Script (run as Administrator on the Windows host). Save the script as azkiflay_sshd.ps1. Open CMD as Administrator and run the script by typing *powershell -File azkiflay_sshd.ps1*.
+
+```bash
+  Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 # Install OpenSSH Server if not installed
+  Start-Service sshd # Start and enable the SSH Server service
+  Set-Service -Name sshd -StartupType 'Automatic' 
+  netsh advfirewall firewall add rule name="OpenSSH-Server-In-TCP" dir=in action=allow protocol=TCP localport=22 # Allow SSH through the firewall on port 22
+  $sshdConfig = "C:\ProgramData\ssh\sshd_config" # Path to sshd_config
+  # Backup original config
+  if (Test-Path "$sshdConfig.bak" -eq $false) { 
+      Copy-Item $sshdConfig "$sshdConfig.bak"
+  }
+  # Ensure password auth is enabled initially
+  (Get-Content $sshdConfig) |
+      ForEach-Object {
+          $_ -replace '^#?PasswordAuthentication.*', 'PasswordAuthentication yes'
+      } | Set-Content $sshdConfig
+  Restart-Service sshd # Restart SSH service to apply changes
+```
+
+After transferring public key to the Windows host, run the following PowerShell script to disable password-based ssh logins. Save the script with an *.ps1* extension. In this case, the script has been saved as *azkiflay_sshd_config.ps1*. Open CMD as Administrator and run the script by typing *powershell -File azkiflay_sshd_config.ps1*.
+
+```bash
+  # --- Authentication settings ---
+PubkeyAuthentication yes
+PasswordAuthentication no   # disable password logins after key is set up
+
+# Allow only specific users (optional, replace with your username)
+# AllowUsers yourwindowsusername
+
+# --- Logging ---
+SyslogFacility AUTH
+LogLevel INFO
+
+# --- Misc recommended options ---
+PermitEmptyPasswords no
+PermitRootLogin no
+UseDNS no
+Restart-Service sshd
+
+```
 
 
 # Telling Ansible About Your Servers
