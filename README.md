@@ -72,7 +72,7 @@ A passphrase is requested to access the private key (azkiflay) as shown in Figur
 
 Following a successful entry of a passphrase, the public key of the Ansible controller was add to the remote host as shown in Figure 2.
 <p align="center">
-  <img src="figures/ssh-copy-id1.png" width="300" height="200"/>
+  <img src="figures/ssh-copy-id2.png" width="300" height="200"/>
 </p>
 <p align="center"><strong>Figure 2:</strong> SSH connection to the VM </p>
 
