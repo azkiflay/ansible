@@ -29,18 +29,6 @@ ansible --version
 * Tasks: Units of action in Ansible. For example, a command to install software on a managed host is a task.
 * Playbook: an *ordered* lists of tasks that can be run by the control node(s) to configure remote hosts.
 
-
-
-# Telling Ansible About Your Servers
-```bash
-  cd ansible #
-  mkdir inventory
-  cd inventory
-  touch vagrant.ini
-  nano vagrant.ini
-  ansible testserver -i ./inventory/vagrant.ini -m ping
-```
-
 # Configuring SSH
 The objective is to setup key-based authentication from the Ansible controller node to managed nodes. The latter use public key of the former to authenticate the controller node, whose private key should be kept locally and securely. In other words, the public key should be known to the managed nodes for them to be able to create a message that can be read only using the private key of the controller node. The authentication process is automatically triggered at each node after the private and public key pair have been configured at the respective host.
 ## Creating public and private keys
@@ -76,7 +64,7 @@ Following a successful entry of a passphrase, the public key of the Ansible cont
 </p>
 <p align="center"><strong>Figure 2:</strong> Transferring public key to a remote host </p>
 
-Therefore, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. As a result, the controller can access the remote host without a password, using the public key. As shown in Figure 3, when *ssh myname@192.168.0.10* is issued to access remote host, no prompt appears asking for a password.
+Therefore, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. As a result, the controller can access the remote host without a password, using the public key. As shown in Figure 3, when *ssh myname@192.168.0.10* is issued to access remote host, no prompt appears asking for a password. Because the public key of the controller has now been added to the remote host's authorized_keys file. The presence of the public key at the remote host can be verified using *nano ~/.ssh/authorized_keys" by connecting to it. With regards to the private key, the clue is in the name. It should be kept private and secure at the controller, which uses it to decrypt messages from remote hosts.
 
 <p align="center">
   <img src="figures/ssh_public_key_login.png" width="300" height="200"/>
@@ -84,4 +72,12 @@ Therefore, the public key of the Ansible controller has been copied to the remot
 <p align="center"><strong>Figure 3:</strong> Public key-based access to a remote host </p>
 
 
-# Adding your SSH public keys to authorized_keys file in each managed host.
+# Telling Ansible About Your Servers
+```bash
+  cd ansible #
+  mkdir inventory
+  cd inventory
+  touch vagrant.ini
+  nano vagrant.ini
+  ansible testserver -i ./inventory/vagrant.ini -m ping
+```
