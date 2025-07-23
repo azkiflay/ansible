@@ -70,7 +70,7 @@ A passphrase is requested to access the private key (azkiflay) as shown in Figur
 </p>
 <p align="center"><strong>Figure 1:</strong> Unlocking the private key </p>
 
-Following a successful entry of a passphrase, the public key of the Ansible controller was add to the remote host as shown in Figure 2.
+Following a successful entry of a passphrase, the public key of the Ansible controller is added to the remote host as depicted in Figure 2.
 <p align="center">
   <img src="figures/ssh-copy-id2.png" width="300" height="200"/>
 </p>
