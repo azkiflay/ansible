@@ -231,3 +231,6 @@ To run the install_apache.yml playbook:
 
 
 # Refrences
+* Ansible for DevOps Server and configuration management for humans 2nd Edition, Jeff Geerling, Lean Publishing, 2023
+* Ansible Website, https://docs.ansible.com/, Accessed 24 July - 8 August, 2025
+* DevOps for the Desperate A Hands-on Survival Guide, Bradley Smith, No Starch Press, 2022
