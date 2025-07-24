@@ -53,7 +53,7 @@ The *ssh-keygen* command is widely used to create the private and public keys fo
 ```
 
 ## Transferring the public key to hosts
-To be able to transfer the Ansible controller node's public key to the managed hosts, you need to have a password-based access to the latter. In other words, you should already be able to use *ssh* to login remotely to the managed hosts using the respective username and password as shown in the following example.
+To be able to transfer the controller's public key to the managed hosts, you need to have an existing password-based access to the latter. In other words, you should already be able to use *ssh* to login remotely to the managed hosts using the respective username and password as shown in the following example.
 ```bash
   ssh myname@192.168.0.10 # ssh-keygen -R 192.168.0.10 # deletes any old key entry from ~/.ssh/known_hosts
 ```
