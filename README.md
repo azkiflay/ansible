@@ -117,7 +117,7 @@ Figure 4 shows the results of the ad hoc ansible tasks above. The ping results i
 
 The first ad hoc command results in "UNREACHABLE!" error for both hosts. Paricularly, the *msg* part of the results states ""msg": "Failed to connect to the host via ssh: aheb@192.168.0.10: Permission denied (publickey,password)". This makes sense because the local username *aheb* does not exist on both of the hosts in the inventory.ini file. 
 ```bash
-  ansible -i inventory.ini all -m ping
+  ansible -i inventory.ini all -m ping # all --> target all hosts in that inventory.
 ```
 
 To tackle this problem, the username on a host can be specified using the *-u* option, as has been done in the following.
@@ -131,16 +131,23 @@ Figure 5 shows the full results of the various ad hoc commands that test connect
 </p>
 <p align="center"><strong>Figure 5:</strong> Checking controller's to hosts using ad hoc command </p>
 
+Having tested the connectivity, lets get some details about the hosts in the inventory.ini file. Fromt the controller node, the "free -h" command can be run on azkiflay_host (192.168.0.11) and the myname_host (192.168.0.10) with the results shown in Figure 6.
+```bash
+  ansible -i inventory.ini myname_host -a "free -h" -u myname
+  ansible -i inventory.ini azkiflay_host -a "free -h" -u azkiflay
+```
+
+<p align="center">
+  <img src="figures/ansible_ad_hoc_ping_2.png" width="600" height="400"/>
+</p>
+<p align="center"><strong>Figure 6:</strong> Ad hoc *free -h* command on hosts </p>
+
 # Making Changes to Managed Hosts
 The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
 
 ## Ad hoc tasks
 Ad hoc tasks are suitable for tasks that are not done repeatedly. The following examples show ad hoc tasks that implement changes at the respective managed hosts.
-```bash
-  ansible -i inventory.ini hosts -m ping -u myname
-  ansible atlanta -a "/sbin/reboot" # Restarting all server all the servers in the [atlanta] group:
 
-```
 
 
 
