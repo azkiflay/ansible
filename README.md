@@ -147,7 +147,7 @@ Having tested the connectivity, lets get some details about the hosts in the inv
 
 
 
-## Ad hoc tasks
+# Playbooks
 Ad hoc tasks are suitable for tasks that are not done repeatedly. The following examples show ad hoc tasks that implement changes at the respective managed hosts.
 
 
