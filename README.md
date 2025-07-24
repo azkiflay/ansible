@@ -63,13 +63,13 @@ After ensuring the managed hosts can be accessed using a password-based authenti
   ssh-copy-id -i ~/.ssh/azkiflay.pub myname@192.168.0.10 # ssh-copy-id --> uses locally available keys to authorise logins on a remote machine
 ```
 
-A passphrase is requested to access the private key (azkiflay) as shown in Figure 1. The password of the user account where the key pair were created is the passphrase.
+A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase.
 <p align="center">
   <img src="figures/ssh_copy_id_1.png" width="300" height="100"/>
 </p>
 <p align="center"><strong>Figure 1:</strong> Unlocking the private key </p>
 
-Following a successful entry of a passphrase, the public key of the Ansible controller is added to the remote host as depicted in Figure 2.
+Following a successful entry of a password, the public key of the Ansible controller is added to the remote host as depicted in Figure 2.
 <p align="center">
   <img src="figures/ssh_copy_id_2.png" width="300" height="200"/>
 </p>
