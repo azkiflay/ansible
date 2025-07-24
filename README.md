@@ -90,7 +90,7 @@ The reason for the passwordless login is because the public key of the controlle
 </p>
 <p align="center"><strong>Figure 3:</strong> Public key-based access to a remote host </p>
 
-# Telling Ansible About Your Servers
+# List of Managed Hosts/Servers
 For the purpose of this tutorial, two servers have been made available.  have two servers
 ```bash
   nano inventory.ini
