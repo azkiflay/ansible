@@ -29,8 +29,8 @@ ansible --version
 Instructions to install Ansible in other major operating systems are available [here](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html).
 
 # How Ansible Workflow
-* Ansible controller tracks the hosts it manages using its local inventory file.
-* Uses *SSH* to connect to a host or groups of hosts in the inventory file.
+* Uses *SSH* to connect to a host or groups of hosts.
+* Ansible controller effects changes to the hosts using ad-hoc commands or using an inventory file.
 * Transfers one or more Ansible modules to its target host(s).
 * Executes the module(s) at the remote target host(s).
 
