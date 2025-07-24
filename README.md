@@ -17,7 +17,7 @@ Moreover, unlike other CM systems, Ansible is agentless because it does not requ
 * Playbook: an *ordered* lists of tasks that can be run by the control node to configure remote hosts. Playbooks are run in control node to configure remote hosts. YAML is used to write playbooks, which can include tasks and variables.
 
 # Ansible Installation
-Instructions to install Ansible for major operating systems is available at https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html. The following commands can be used to install Ansible on Ubuntu. While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
+The following commands can be used to install Ansible on Ubuntu. While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
 
 ```bash
 sudo apt update
@@ -26,7 +26,7 @@ sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 ansible --version
 ```
-
+Instructions to install Ansible in other major operating systems is available at https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html.
 
 
 # Configuring SSH
