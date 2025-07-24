@@ -102,13 +102,16 @@ The inventory.ini file contains a list of hosts that the controller will be mana
   [azkiflay_host]
   192.168.0.11
 ```
+# Ad Hoc Commands to Changes on Managed Hosts
+The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
 
-Then, we can use the ad hoc command below to check connectivity of the controller to a managed host. Note the *-i*, *-m*, and *-u* options are used to specify the inventory file at the controller, the command to execute, and a user name at the managed host, respectively.
+Considering the hosts defined in the *inventory.ini* file earlier, let us utilize ad hoc commands to check connectivity of the controller to the managed host. The following two commands do just that.
 ```bash
   ansible -i inventory.ini myname_host -m ping -u myname
   ansible -i inventory.ini azkiflay_host -m ping -u azkiflay
 ```
-
+ Note the *-i*, *-m*, and *-u* options are used to specify the inventory file at the controller, the command to execute, and a user name at the managed host, respectively.
+ 
 Figure 4 shows the results of the ad hoc ansible tasks above. The ping results indicate that the controller can reach both hosts successfully.
 <p align="center">
   <img src="figures/ansible_ad_hoc_ping.png" width="600" height="400"/>
@@ -142,8 +145,7 @@ Having tested the connectivity, lets get some details about the hosts in the inv
 </p>
 <p align="center"><strong>Figure 6:</strong> Getting memory details of hosts using ad hoc commands </p>
 
-# Making Changes to Managed Hosts
-The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
+
 
 ## Ad hoc tasks
 Ad hoc tasks are suitable for tasks that are not done repeatedly. The following examples show ad hoc tasks that implement changes at the respective managed hosts.
