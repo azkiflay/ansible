@@ -111,7 +111,7 @@ Then, we can use the ad hoc command below to check connectivity of the controlle
 
 Figure 4 shows the results of the ad hoc ansible tasks above. The ping results indicate that the controller can reach both hosts successfully.
 <p align="center">
-  <img src="figures/ansible_ad_hoc_ping.png" width="600" height="300"/>
+  <img src="figures/ansible_ad_hoc_ping.png" width="600" height="400"/>
 </p>
 <p align="center"><strong>Figure 4:</strong> Checking controller's to hosts using ad hoc command </p>
 
@@ -127,7 +127,7 @@ To tackle this problem, the username on a host can be specified using the *-u* o
 
 Figure 5 shows the full results of the various ad hoc commands that test connectivity of the ansible controller and the hosts in its inventory.ini file.
 <p align="center">
-  <img src="figures/ansible_ad_hoc_ping_2.png" width="600" height="300"/>
+  <img src="figures/ansible_ad_hoc_ping_2.png" width="600" height="400"/>
 </p>
 <p align="center"><strong>Figure 5:</strong> Checking controller's to hosts using ad hoc command </p>
 
