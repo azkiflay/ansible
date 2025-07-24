@@ -29,16 +29,16 @@ ansible --version
 Instructions to install Ansible in other major operating systems are available [here](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html).
 
 # How Ansible Workflow
-* Ansible tracks the hosts it manages using its local inventory file.
+* Ansible controller tracks the hosts it manages using its local inventory file.
 * Uses *SSH* to connect to a host or groups of hosts in the inventory file.
 * Transfers one or more Ansible modules to its target host(s).
 * Executes the module(s) at the remote target host(s).
 
-Before the Ansible controller can do anything on remote hosts, it needs to be connected to them. As stated earlier, such network connection is setup using SSH. Therefore, it is important to ensure SSH is available and configured correctly on the controller and managed hosts. Moreover, to avoid a rogue controller taking over the infrastructure, key-based authentication can be enforced. The next steps show how to configure public and private keys for SSH, requiring the Ansible controller to be authenticated by the remote hosts. 
+Before the controller can do anything on remote hosts, it needs to be connected to them. As stated earlier, such network connection is setup using SSH. Therefore, it is important to ensure SSH is available and configured correctly on the controller and managed hosts. Moreover, to avoid a rogue controller taking over the infrastructure, key-based authentication can be enforced. The next steps show how to configure public and private keys for SSH, requiring the controller to be authenticated by the remote hosts. 
 
 
 # Configuring SSH
-The objective is to setup key-based authentication from the Ansible controller node to managed nodes. The latter use public key of the former to authenticate the controller node, whose private key should be kept locally and securely. In other words, the public key should be known to the managed nodes for them to be able to create a message that can be read only using the private key of the controller node. The authentication process is automatically triggered at each node after the private and public key pair have been configured at the respective host.
+The objective is to setup key-based authentication from the controller node to managed nodes. The latter use public key of the former to authenticate the controller node, whose private key should be kept locally and securely. In other words, the public key should be known to the managed nodes for them to be able to create a message that can be read only using the private key of the controller node. The authentication process is automatically triggered at each node after the private and public key pair have been configured at the respective host.
 ## Creating public and private keys
 The following command creates a private and public keys and saves them inside ".ssh" directory. The file name of the private key is ansible_key, while the public is ansible_key.pub.
 ```bash
