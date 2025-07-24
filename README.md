@@ -150,25 +150,69 @@ Having tested the connectivity, lets get some details about the hosts in the inv
 # Playbooks
 While ad hoc commands are useful for running one-off tasks, they are not suitable for many tasks that have to be done in a repeatable manner. That's where *playbooks* come in. Playbooks,  are a set of instructions that aim to bring server(s) to a specific configuration state. Playbooks are written in YAML, and they are to be executed (*played*) on the managed server(s). Playbooks can be subsets of playbooks.
 
-To illustrate, assume we want to remove an existing *Apache2* installation from the 192.168.0.10 host. Shell commands are one way to do that. As discussed earlier, ad hoc commands in ansible can be used to issue one-off shell commands. Alternatively, we can *ssh* to the remote host and run the commands step-by-step to unistall the *Apache2* package. Since the ad hoc commands require setting various options as shown earlier, let us just *ssh* to the host and uninstall *Apache2* as shown below.
+To illustrate, assume we want to remove an existing *Apache2* installation from the 192.168.0.10 host. Shell commands are one way to do that. As discussed earlier, ad hoc commands in ansible can be used to issue one-off shell commands. Alternatively, we can *ssh* to the remote host and run the commands step-by-step to unistall the *Apache2* package. Since the ad hoc commands require setting various options as shown earlier, let us just *ssh* to the host and uninstall *Apache2* as shown below. Let us save the shell script as "*remove_apache.sh*" at the controller. 
 
 ```bash
+  #!/bin/bash
   apache2 -v
-  sudo systemctl stop apache2 # Stop Apache
-  sudo systemctl disable apache2 # Disable Apache
-  sudo apt purge apache2 -y # Purge Apache packages and clean up dependencies
-  sudo apt autoremove -y
-  sudo apt autoclean
-  sudo rm -rf /etc/apache2 # Remove Apache configuration directory  
-  sudo rm -rf /var/log/apache2 # Remove Apache log files
-  sudo rm -rf /var/www/html # Remove default web root (CAUTION: deletes /var/www/html)
-  sudo rm -rf /var/www
+  systemctl stop apache2 # Stop Apache
+  systemctl disable apache2 # Disable Apache
+  apt purge apache2 -y # Purge Apache packages and clean up dependencies
+  apt autoremove -y
+  apt autoclean
+  rm -rf /etc/apache2 # Remove Apache configuration directory  
+  rm -rf /var/log/apache2 # Remove Apache log files
+  rm -rf /var/www/html # Remove default web root (CAUTION: deletes /var/www/html)
+  rm -rf /var/www
   which apache2 || echo "apache2 not found" # Verify apache2 binary no longer exists
   systemctl status apache2 || echo "apache2 service not found" # Verify apache2 service no longer exists
 ```
 
+However, we want to execute the shell script at the remote host. Therefore, first the file has to be copied over to the managed host. We can use *scp* or *rsync* commands for that purpose as shown in the following. Subsequnetly, the shell script can be run to uninstall the Apache2 software.
+```bash
+  scp remove_apache.sh myname@192.168.0.10:/tmp/remove_apache.sh # Or --> rsync -avz remove_apache.sh myname@192.168.0.10:/tmp/remove_apache.sh
+  ssh myname@192.168.0.10
+  sudo sh /tmp/remove_apache.sh # --> If successful, returns "apache2 service not found" message at the end.
+```
 
+You may be wondering what is the problem with the above shell script. After all, it does what is supposed to do, at least in this case. The problem arises when we want apply a similar set of operation on multiple servers in a repeatable and safe manner. That is where ansible playbooks come in.
 
+To easily compare with the previous commands for unistalling Apache, let us convert the contents of "*remove_apache.sh*" shell script to an equivalent ansible playbook. First, the apache2 package needs to be installed at the 192.168.0.10 machine, as the package was removed by the "*remove_apache.sh" script. Let us save the script in a "*install_apache.sh*". Subsequently, the script is copied over to the target host and run there to install *apache2*.
+
+```bash
+  #!/bin/bash
+  echo "=== Updating package list ==="
+  apt update
+  echo "=== Installing Apache2 ==="
+  apt install apache2 -y
+  echo "=== Recreating default web root directories ==="
+  mkdir -p /var/www/html
+  chown -R www-data:www-data /var/www
+  chmod -R 755 /var/www
+  echo "=== Enabling and starting Apache2 service ==="
+  systemctl enable apache2
+  systemctl start apache2
+  echo "=== Verifying Apache2 installation ==="
+  apache2 -v || echo "Apache2 not found"
+  systemctl status apache2 --no-pager || echo "Apache2 service not found"
+  echo "=== Apache2 reinstallation complete! ==="
+```
+
+```bash
+  rsync -avz install_apache.sh myname@192.168.0.10:/tmp/install_apache.sh # Or --> scp remove_apache.sh myname@192.168.0.10:/tmp/remove_apache.sh
+  ssh myname@192.168.0.10
+  sudo sh /tmp/install_apache.sh # --> If successful, returns "apache2 service not found" message at the end.
+```
+
+Run the remove_apache.yml playbook as follows:
+``bash
+  ansible-playbook -i inventory.ini remove_apache.yml -u azkiflay --become  --ask-become-pass
+```
+
+To run the install_apache.yml playbook:
+``bash
+  ansible-playbook -i inventory.ini install_apache.yml -u azkiflay --become  --ask-become-pass # --> asks for root
+```
 
 # Future
 * WinRM and SSH based connection between Ansible controller and managed hosts

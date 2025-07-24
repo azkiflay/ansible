@@ -1,0 +1,69 @@
+---
+- name: Reinstall and configure Apache2
+  hosts: azkiflay_host       # <-- replace with your group or host from inventory.ini
+  become: true           # run tasks with sudo
+  tasks:
+
+    - name: Update apt package cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install Apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+
+    - name: Ensure /var/www/html directory exists
+      ansible.builtin.file:
+        path: /var/www/html
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+    - name: Ensure ownership and permissions on /var/www
+      ansible.builtin.file:
+        path: /var/www
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+    - name: Enable Apache2 service
+      ansible.builtin.service:
+        name: apache2
+        enabled: true
+
+    - name: Start Apache2 service
+      ansible.builtin.service:
+        name: apache2
+        state: started
+
+    - name: Verify Apache2 binary exists
+      ansible.builtin.command: which apache2
+      register: apache2_path
+      ignore_errors: true
+
+    - name: Show Apache2 binary status
+      ansible.builtin.debug:
+        msg: >
+          {% if apache2_path.rc == 0 %}
+          Apache2 binary found at {{ apache2_path.stdout }}
+          {% else %}
+          Apache2 binary not found
+          {% endif %}
+
+    - name: Verify Apache2 service status
+      ansible.builtin.command: systemctl status apache2
+      register: apache2_service
+      ignore_errors: true
+
+    - name: Show Apache2 service status
+      ansible.builtin.debug:
+        msg: >
+          {% if apache2_service.rc == 0 %}
+          Apache2 service is present and status fetched successfully.
+          {% else %}
+          Apache2 service not found or not running.
+          {% endif %}

@@ -1,17 +1,15 @@
----
-- name: Completely remove Apache2 and its files
-  hosts: myname_hosts          # <-- use your group/host from inventory.ini
-  become: true              # run with sudo
+- name: Completely remove Apache2 and related files
+  hosts: azkiflay_host        # <-- replace with your group or host from inventory.ini
+  become: true            # run tasks as root (sudo)
   tasks:
-
     - name: Stop Apache2 service
       ansible.builtin.service:
         name: apache2
         state: stopped
         enabled: false
-      ignore_errors: true    # in case apache2 isn't installed
+      ignore_errors: true
 
-    - name: Purge apache2 package
+    - name: Purge Apache2 package
       ansible.builtin.apt:
         name: apache2
         state: absent
@@ -19,27 +17,56 @@
         autoremove: true
         update_cache: true
 
-    - name: Autoclean APT cache
-      ansible.builtin.command: apt autoclean
-      args:
-        warn: false
+    - name: Autoclean apt cache
+      ansible.builtin.apt:
+        autoclean: yes
 
-    - name: Remove Apache2 config directory
+
+    - name: Remove Apache configuration directory
       ansible.builtin.file:
         path: /etc/apache2
         state: absent
 
-    - name: Remove Apache2 log directory
+    - name: Remove Apache log directory
       ansible.builtin.file:
         path: /var/log/apache2
         state: absent
 
-    - name: Remove default web root (html)
+    - name: Remove html default web root
       ansible.builtin.file:
         path: /var/www/html
         state: absent
 
-    - name: Remove /var/www directory (if desired)
+    - name: Remove /var/www directory
       ansible.builtin.file:
         path: /var/www
         state: absent
+
+    # Verification tasks (informational only)
+    - name: Check if apache2 binary exists
+      ansible.builtin.command: which apache2
+      register: apache2_path
+      ignore_errors: true
+
+    - name: Print apache2 binary status
+      ansible.builtin.debug:
+        msg: >
+          {% if apache2_path.rc == 0 %}
+          Apache2 binary still found at {{ apache2_path.stdout }}
+          {% else %}
+          apache2 not found
+          {% endif %}
+
+    - name: Check apache2 service status
+      ansible.builtin.command: systemctl status apache2
+      register: apache2_service
+      ignore_errors: true
+
+    - name: Print apache2 service status
+      ansible.builtin.debug:
+        msg: >
+          {% if apache2_service.rc == 0 %}
+          Apache2 service still running or present.
+          {% else %}
+          apache2 service not found
+          {% endif %}
