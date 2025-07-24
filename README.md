@@ -28,11 +28,13 @@ ansible --version
 ```
 Instructions to install Ansible in other major operating systems are available [here](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html).
 
-# How Ansible Works
+# How Ansible Workflow
 * Ansible tracks the hosts it manages using its local inventory file.
 * Uses *SSH* to connect to a host or groups of hosts in the inventory file.
 * Transfers one or more Ansible modules to its target host(s).
 * Executes the module(s) at the remote target host(s).
+
+Before the Ansible controller can do anything on a remote host, it needs to be connected with it. The connection is setup using SSH. Therefore, it is important to ensure SSH is available and configured correctly on the controller and managed hosts.
 
 
 # Configuring SSH
