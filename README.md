@@ -93,19 +93,30 @@ The reason for the passwordless login is because the public key of the controlle
 # Telling Ansible About Your Servers
 For the purpose of this tutorial, two servers have been made available.  have two servers
 ```bash
-  cd ansible #
-  mkdir inventory
-  cd inventory
-  touch vagrant.ini
-  nano vagrant.ini
-  ansible testserver -i ./inventory/vagrant.ini -m ping
+  touch inventory.ini
+  nano inventory.ini
+```
+In the inventory file, lets add two hosts as shown below.
+```bash
+  [myhost]
+  192.168.0.10
+  [azkiflay]
+  192.168.0.11
+```
+
+```bash
+  touch inventory.ini
+  nano inventory.ini
+  ansible -i inventory.ini myhost -m ping -u myname
 ```
 
 # Making Changes to Managed Hosts
 The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
 
 ## Ad hoc tasks
+Ad hoc tasks are suitable for tasks that are not done repeatedly. The following examples show ad hoc tasks that implement changes at the respective managed hosts.
 ```bash
+  ansible -i inventory.ini hosts -m ping -u myname
   ansible atlanta -a "/sbin/reboot" # Restarting all server all the servers in the [atlanta] group:
 
 ```
