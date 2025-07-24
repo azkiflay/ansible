@@ -91,11 +91,11 @@ The reason for the passwordless login is because the public key of the controlle
 <p align="center"><strong>Figure 3:</strong> Public key-based access to a remote host </p>
 
 # List of Managed Hosts/Servers
-For the purpose of this tutorial, two servers have been made available.  have two servers
+The inventory.ini file contains a list of hosts that the controller will be managing. Ansible can administer several hundreds and thousands of hosts. For demonstration, lets add two hosts as shown below. For the purpose of this tutorial, two servers have been made available.
 ```bash
   nano inventory.ini
 ```
-The inventory.ini file contains a list of hosts that the controller will be managing. Ansible can administer several hundreds and thousands of hosts. For demonstration, lets add two hosts as shown below.
+
 ```bash
   [myname_host]
   192.168.0.10
