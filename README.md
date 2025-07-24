@@ -140,7 +140,7 @@ Having tested the connectivity, lets get some details about the hosts in the inv
 <p align="center">
   <img src="figures/ansible_ad_hoc_host_info.png" width="600" height="400"/>
 </p>
-<p align="center"><strong>Figure 6:</strong> Ad hoc *free -h* command on hosts </p>
+<p align="center"><strong>Figure 6:</strong> Getting memory details of hosts using ad hoc commands </p>
 
 # Making Changes to Managed Hosts
 The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
