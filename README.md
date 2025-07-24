@@ -65,7 +65,7 @@ After ensuring the managed hosts can be accessed using a password-based authenti
 
 A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase.
 <p align="center">
-  <img src="figures/ssh_copy_id_1.png" width="400" height="100"/>
+  <img src="figures/ssh_copy_id_1.png" width="600" height="200"/>
 </p>
 <p align="center"><strong>Figure 1:</strong> Unlocking the private key </p>
 
