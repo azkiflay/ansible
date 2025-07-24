@@ -43,6 +43,7 @@ Firstly, public and private keys are generated at the controller. Secondly, the 
 
 ## Creating public and private keys
 The *ssh-keygen* command is widely used to create the private and public keys for and at the controller. For example, the following creates a private and public keys and saves them inside the *~/.ssh* directory. The file name of the private key is *ansible_key*, while the public is *ansible_key.pub*. While any name can be given for the key pairs, the *ssh-keygen* command provides default names of *id_rsa*, and *id_rsa.pub*, for the private and public keys, respectively.
+
 ```bash
   ssh-keygen -t rsa -f ~/.ssh/ansible_key
   ls -l ~/.ssh/ansible_key # Private key permissions
@@ -53,11 +54,13 @@ The *ssh-keygen* command is widely used to create the private and public keys fo
 
 ## Transferring the public key to hosts
 To be able to transfer the controller's public key to the managed hosts, you need to have an existing password-based access to the latter. In other words, you should already be able to use *ssh* to login remotely to the managed hosts using the respective username and password as shown in the following example.
+
 ```bash
   ssh myname@192.168.0.10 # ssh-keygen -R 192.168.0.10 # deletes any old key entry from ~/.ssh/known_hosts
 ```
 
 After ensuring the managed hosts can be accessed using a password-based authentication, the next step is to configure *ssh* to use the private and public keys created earlier for authenticating the Ansible controller with the managed hosts. But first we need to transfer the public key to the hosts. To that end, *ssh-copy-id* command followed by each host's IP address or domain name is used as shown in the following example. Note that the public key was created with a custom name earlier. Therefore, that the name of the public key has to be specified using the *-i* option.
+
 ```bash
   ssh-copy-id -i ~/.ssh/azkiflay.pub myname@192.168.0.10 # ssh-copy-id --> uses locally available keys to authorise logins on a remote machine
 ```
@@ -74,7 +77,8 @@ Following a successful entry of a password, the public key of the Ansible contro
 </p>
 <p align="center"><strong>Figure 2:</strong> Transferring public key to a remote host </p>
 
-Therefore, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. As a result, the controller can now access the remote host without a password, using the public key. As shown in Figure 3, when "*ssh myname@192.168.0.10*" is issued to access remote host, no prompt appears asking for a password. 
+Therefore, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. As a result, the controller can now access the remote host without a password, using the public key. As shown in Figure 3, when "*ssh myname@192.168.0.10*" is issued to access remote host, no prompt appears asking for a password.
+
 ```bash
   ssh myname@192.168.0.10 
   # ssh -p port_number myname@192.168.0.10 # If ssh is not running on the default port number 22
@@ -92,6 +96,7 @@ The reason for the passwordless login is because the public key of the controlle
 
 # List of Managed Hosts/Servers
 The inventory.ini file contains a list of hosts that the controller will be managing. Ansible can administer several hundreds and thousands of hosts. For demonstration, lets add two hosts as shown below. For the purpose of this tutorial, two servers have been made available.
+
 ```bash
   nano inventory.ini
 ```
@@ -106,6 +111,7 @@ The inventory.ini file contains a list of hosts that the controller will be mana
 The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
 
 Considering the hosts defined in the *inventory.ini* file earlier, let us utilize ad hoc commands to check connectivity of the controller to the managed host. The following two commands do just that.
+
 ```bash
   ansible -i inventory.ini myname_host -m ping -u myname
   ansible -i inventory.ini azkiflay_host -m ping -u azkiflay
@@ -119,11 +125,13 @@ Figure 4 shows the results of the ad hoc ansible tasks above. The ping results i
 <p align="center"><strong>Figure 4:</strong> Checking controller's to hosts using ad hoc command </p>
 
 The first ad hoc command results in "UNREACHABLE!" error for both hosts. Paricularly, the *msg* part of the results states ""msg": "Failed to connect to the host via ssh: aheb@192.168.0.10: Permission denied (publickey,password)". This makes sense because the local username *aheb* does not exist on both of the hosts in the inventory.ini file. 
+
 ```bash
   ansible -i inventory.ini all -m ping # all --> target all hosts in that inventory.
 ```
 
 To tackle this problem, the username on a host can be specified using the *-u* option, as has been done in the following.
+
 ```bash
   ansible -i inventory.ini all -m ping -u azkiflay # returns error on one of the hosts, but successful on the other host
 ```
@@ -135,6 +143,7 @@ Figure 5 shows the full results of the various ad hoc commands that test connect
 <p align="center"><strong>Figure 5:</strong> Checking controller's to hosts using ad hoc command </p>
 
 Having tested the connectivity, lets get some details about the hosts in the inventory.ini file. Fromt the controller node, the "free -h" command can be run on azkiflay_host (192.168.0.11) and the myname_host (192.168.0.10) with the results shown in Figure 6.
+
 ```bash
   ansible -i inventory.ini myname_host -a "free -h" -u myname
   ansible -i inventory.ini azkiflay_host -a "free -h" -u azkiflay
@@ -169,6 +178,7 @@ To illustrate, assume we want to remove an existing *Apache2* installation from 
 ```
 
 However, we want to execute the shell script at the remote host. Therefore, first the file has to be copied over to the managed host. We can use *scp* or *rsync* commands for that purpose as shown in the following. Subsequnetly, the shell script can be run to uninstall the Apache2 software.
+
 ```bash
   scp remove_apache.sh myname@192.168.0.10:/tmp/remove_apache.sh # Or --> rsync -avz remove_apache.sh myname@192.168.0.10:/tmp/remove_apache.sh
   ssh myname@192.168.0.10
@@ -205,12 +215,13 @@ To easily compare with the previous commands for unistalling Apache, let us conv
 ```
 
 Run the remove_apache.yml playbook as follows:
-``bash
+
+```bash
   ansible-playbook -i inventory.ini remove_apache.yml -u azkiflay --become  --ask-become-pass
 ```
 
 To run the install_apache.yml playbook:
-``bash
+```bash
   ansible-playbook -i inventory.ini install_apache.yml -u azkiflay --become  --ask-become-pass # --> asks for root
 ```
 
