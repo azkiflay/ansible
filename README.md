@@ -4,9 +4,9 @@ Servers can be configured individually, but doing so is tiring, time-consuming a
 
 Ansible orchestrates infrastructure such as virtual machines (VMs). Ansible is written in Python. While tools such as Vagrant and Terraform are Infrastructure as Code (IaC) systems, Ansible is widely adopted to manage the configuration of infrastructure. Ansible uses Yet Another Markup Language (YAML) to describe the desired state of infrastructure. As a result, Ansible has a *declarative* configuration style rather than *imperative*. In the latter the user specifies detailed description of the infrastructure, while a description of the infrastructre state suffices in Ansible.
 
-Unlike other CM systems, Ansible is agentless, it does not require a software agent to be installed on the managed servers. Ansible relies on Secure Shell (SSH) to push configuration to servers and make the desired changes. With SSH being the most secure method to connect to remote hosts, Ansible leverages SSH to configure a number of servers of the network.
+Moreover, unlike other CM systems, Ansible is agentless because it does not require a software agent to be installed on the managed hosts. Ansible utilizes Secure Shell (SSH) to push configuration to hosts and make the desired changes accordingly. With SSH being the most secure method to connect to remote hosts, Ansible leverages SSH to configure a number of hosts.
 
-using Ansible (User and Group Mangement, Two-factor authentication over SSH, User security policy such as controlling user commands, Host-based Firewall Automation)
+<!-- Using Ansible (User and Group Mangement, Two-factor authentication over SSH, User security policy such as controlling user commands, Host-based Firewall Automation) -->
 
 
 # Ansible Installation on Ubuntu 24.04 LTS
