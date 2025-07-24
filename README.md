@@ -34,7 +34,7 @@ Instructions to install Ansible in other major operating systems are available [
 * Transfers one or more Ansible modules to its target host(s).
 * Executes the module(s) at the remote target host(s).
 
-Before the controller can do anything on remote hosts, it needs to be connected to them. As stated earlier, such network connection is setup using SSH. Therefore, it is important to ensure SSH is available and configured correctly on the controller and managed hosts. Moreover, to avoid a rogue controller taking over the infrastructure, key-based authentication can be enforced. The next steps show how to configure public and private keys for SSH, requiring the controller to be authenticated by the remote hosts. 
+Before the controller can do anything on remote hosts, it needs to be connected to them. As stated earlier, such network connection is setup using SSH. Therefore, it is important to ensure SSH is available and configured correctly on the controller and managed hosts. Moreover, to avoid a rogue controller taking over the infrastructure, a key-based or passworkd-based authentication can be enforced. In most cases, a key-based authentication is preferrable. The next steps show how to configure public and private keys for SSH, requiring the controller to be authenticated by the remote hosts. 
 
 
 # Configuring SSH
