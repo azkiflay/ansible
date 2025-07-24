@@ -8,6 +8,14 @@ Moreover, unlike other CM systems, Ansible is agentless because it does not requ
 
 <!-- Using Ansible (User and Group Mangement, Two-factor authentication over SSH, User security policy such as controlling user commands, Host-based Firewall Automation) -->
 
+# Ansible Terminology
+* Control node: a Unix/Linux machine where Ansible has been installed. Playbooks are run in control node to implement configuration of remote hosts. It is possible to have more than one control nodes. A Windows machine cannot be a control node.
+* Managed nodes (hosts): Network devices or servers managed by Ansible.
+* Inventory: a file that contains a list/group of hosts that an Ansible control node works with. Inventory is at the control node.
+* Module: a piece of code that Ansible executes to perform specific actions on different OS and environments.
+* Tasks: Units of action in Ansible. For example, a command to install software on a managed host is a task.
+* Playbook: an *ordered* lists of tasks that can be run by the control node(s) to configure remote hosts.
+
 
 # Ansible Installation on Ubuntu 24.04 LTS
 Instructions to install Ansible for major operating systems is available at https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html. To install Ansible in Ubuntu, the following steps have been followed.
@@ -20,13 +28,7 @@ sudo apt install ansible
 ansible --version
 ```
 
-# Ansible Terminology
-* Control node: a Unix/Linux machine where Ansible has been installed. Playbooks are run in control node to implement configuration of remote hosts. It is possible to have more than one control nodes. A Windows machine cannot be a control node.
-* Managed nodes (hosts): Network devices or servers managed by Ansible.
-* Inventory: a file that contains a list/group of hosts that an Ansible control node works with. Inventory is at the control node.
-* Module: a piece of code that Ansible executes to perform specific actions on different OS and environments.
-* Tasks: Units of action in Ansible. For example, a command to install software on a managed host is a task.
-* Playbook: an *ordered* lists of tasks that can be run by the control node(s) to configure remote hosts.
+
 
 # Configuring SSH
 The objective is to setup key-based authentication from the Ansible controller node to managed nodes. The latter use public key of the former to authenticate the controller node, whose private key should be kept locally and securely. In other words, the public key should be known to the managed nodes for them to be able to create a message that can be read only using the private key of the controller node. The authentication process is automatically triggered at each node after the private and public key pair have been configured at the respective host.
