@@ -26,7 +26,7 @@ sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 ansible --version
 ```
-Instructions to install Ansible in other major operating systems is available at https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html.
+Instructions to install Ansible in other major operating systems is available [here](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html).
 
 
 # Configuring SSH
