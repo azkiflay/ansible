@@ -9,16 +9,15 @@ Moreover, unlike other CM systems, Ansible is agentless because it does not requ
 <!-- Using Ansible (User and Group Mangement, Two-factor authentication over SSH, User security policy such as controlling user commands, Host-based Firewall Automation) -->
 
 # Ansible Terminology
-* Control node: a Unix/Linux machine where Ansible has been installed. Playbooks are run in control node to implement configuration of remote hosts. It is possible to have more than one control nodes. A Windows machine cannot be a control node.
-* Managed nodes (hosts): Network devices or servers managed by Ansible.
-* Inventory: a file that contains a list/group of hosts that an Ansible control node works with. Inventory is at the control node.
-* Module: a piece of code that Ansible executes to perform specific actions on different OS and environments.
+* Control node: a Linux/Unix machine where Ansible has been installed. It is possible to have more than one control nodes. A Windows machine cannot be a control node.
+* Managed nodes (hosts): Network devices or servers managed by Ansible. Managed hosts do not have have Ansible installed on them.
+* Inventory: a file that contains a list/group of hosts that an Ansible control node works with. Inventory file is created at the control node, specifying details of managed hosts such as IP addresses, and domain names. Host information in an inventory file can be organized in groups and subgroups.
+* Module: a piece of code that Ansible executes to perform specific actions on different operating systems and environments. One more more modules can be used in tasks and playbooks.
 * Tasks: Units of action in Ansible. For example, a command to install software on a managed host is a task.
-* Playbook: an *ordered* lists of tasks that can be run by the control node(s) to configure remote hosts.
+* Playbook: an *ordered* lists of tasks that can be run by the control node to configure remote hosts. Playbooks are run in control node to configure remote hosts. YAML is used to write playbooks, which can include tasks and variables.
 
-
-# Ansible Installation on Ubuntu 24.04 LTS
-Instructions to install Ansible for major operating systems is available at https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html. To install Ansible in Ubuntu, the following steps have been followed.
+# Ansible Installation
+Instructions to install Ansible for major operating systems is available at https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html. The following commands can be used to install Ansible on Ubuntu. While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
 
 ```bash
 sudo apt update
