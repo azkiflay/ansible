@@ -148,7 +148,7 @@ Having tested the connectivity, lets get some details about the hosts in the inv
 
 
 # Playbooks
-Ad hoc tasks are suitable for tasks that are not done repeatedly. The following examples show ad hoc tasks that implement changes at the respective managed hosts.
+While ad hoc commands are useful for running one-off tasks, they are not suitable for many tasks that have to be done in a repeatable manner. That's where *playbooks* come in. Playbooks,  are a set of instructions that aim to bring server(s) to a desired configuration state. Playbooks are written in YAML, and they are to be executed (*played*) on the managed server(s). Playbooks can be subsets of playbooks.
 
 
 
