@@ -93,7 +93,6 @@ The reason for the passwordless login is because the public key of the controlle
 # Telling Ansible About Your Servers
 For the purpose of this tutorial, two servers have been made available.  have two servers
 ```bash
-  touch inventory.ini
   nano inventory.ini
 ```
 In the inventory file, lets add two hosts as shown below.
