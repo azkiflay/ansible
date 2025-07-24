@@ -38,7 +38,7 @@ Before the controller can do anything on remote hosts, it needs to be connected 
 
 
 # Configuring SSH
-The objective is to setup key-based authentication from the controller node to managed nodes. The latter use public key of the former to authenticate the controller node, whose private key should be kept locally and securely. In other words, the public key should be known to the managed nodes for them to be able to create a message that can be read only using the private key of the controller node. The authentication process is automatically triggered at each node after the private and public key pair have been configured at the respective host.
+The objective is to setup key-based authentication from the controller node to managed nodes. The latter use public key of the former to authenticate it. The controller's private key should be kept locally and securely. In other words, the public key should be known to the managed nodes for them to be able to create a message that can be read only using the private key of the controller node. The authentication process is automatically triggered at each node after the private and public key pair have been configured at the respective host.
 ## Creating public and private keys
 The following command creates a private and public keys and saves them inside ".ssh" directory. The file name of the private key is ansible_key, while the public is ansible_key.pub.
 ```bash
