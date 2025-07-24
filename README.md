@@ -8,13 +8,19 @@ Moreover, unlike other CM systems, Ansible is agentless because it does not requ
 
 <!-- Using Ansible (User and Group Mangement, Two-factor authentication over SSH, User security policy such as controlling user commands, Host-based Firewall Automation) -->
 
-# Ansible Terminology
+# Ansible Terminology and Workflow
 * Control node: a Linux/Unix machine where Ansible has been installed. It is possible to have more than one control nodes. A Windows machine cannot be a control node.
 * Managed nodes (hosts): Network devices or servers managed by Ansible. Managed hosts do not have have Ansible installed on them.
 * Inventory: a file that contains a list/group of hosts that an Ansible control node works with. Inventory file is created at the control node, specifying details of managed hosts such as IP addresses, and domain names. Host information in an inventory file can be organized in groups and subgroups.
 * Module: a piece of code that Ansible executes to perform specific actions on different operating systems and environments. One more more modules can be used in tasks and playbooks.
 * Tasks: Units of action in Ansible. For example, a command to install software on a managed host is a task.
 * Playbook: an *ordered* lists of tasks that can be run by the control node to configure remote hosts. Playbooks are run in control node to configure remote hosts. YAML is used to write playbooks, which can include tasks and variables.
+
+Broadly, the Ansible workflow includes the following major steps:
+* Ansible controller uses *SSH* to connect to a host or groups of hosts.
+* The controller makes changes to host(s) using ad-hoc commands or using an inventory file.
+* Transfers one or more Ansible modules to host(s).
+* Executes the module(s) at the host(s).
 
 # Ansible Installation
 The following commands can be used to install Ansible on Ubuntu. While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
@@ -27,13 +33,6 @@ sudo apt install ansible
 ansible --version
 ```
 Instructions to install Ansible in other major operating systems are available [here](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html).
-
-# How Ansible Workflow
-* Ansible controller uses *SSH* to connect to a host or groups of hosts.
-* The controller makes changes to host(s) using ad-hoc commands or using an inventory file.
-* Transfers one or more Ansible modules to host(s).
-* Executes the module(s) at the host(s).
-
 
 # Configuring SSH
 Before the controller can do anything on the managed hosts, it needs to be connected to them. As stated earlier, such network connection is setup using SSH. Therefore, it is important to ensure SSH is available and configured correctly on the controller and managed hosts. Moreover, to avoid a rogue controller taking over the infrastructure, a key-based or passworkd-based authentication must be enforced. In most cases, a key-based authentication is preferrable. The next steps show how to configure public and private keys for SSH, requiring the controller to be authenticated by the remote hosts.
@@ -91,9 +90,8 @@ The reason for the passwordless login is because the public key of the controlle
 </p>
 <p align="center"><strong>Figure 3:</strong> Public key-based access to a remote host </p>
 
-
-
 # Telling Ansible About Your Servers
+For the purpose of this tutorial, two servers have been made available.  have two servers
 ```bash
   cd ansible #
   mkdir inventory
@@ -102,6 +100,17 @@ The reason for the passwordless login is because the public key of the controlle
   nano vagrant.ini
   ansible testserver -i ./inventory/vagrant.ini -m ping
 ```
+
+# Making Changes to Managed Hosts
+The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
+
+## Ad hoc tasks
+```bash
+  ansible atlanta -a "/sbin/reboot" # Restarting all server all the servers in the [atlanta] group:
+
+```
+
+
 
 # Future
 * WinRM and SSH based connection between Ansible controller and managed hosts
