@@ -75,7 +75,7 @@ Following a successful entry of a password, the public key of the Ansible contro
 </p>
 <p align="center"><strong>Figure 2:</strong> Transferring public key to a remote host </p>
 
-Therefore, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. As a result, the controller can access the remote host without a password, using the public key. As shown in Figure 3, when *ssh myname@192.168.0.10* is issued to access remote host, no prompt appears asking for a password. 
+Therefore, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. As a result, the controller can now access the remote host without a password, using the public key. As shown in Figure 3, when *ssh myname@192.168.0.10* is issued to access remote host, no prompt appears asking for a password. 
 ```bash
   ssh myname@192.168.0.10 
   # ssh -p port_number myname@192.168.0.10 # If ssh is not running on the default port number 22
