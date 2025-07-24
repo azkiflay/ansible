@@ -138,7 +138,7 @@ Having tested the connectivity, lets get some details about the hosts in the inv
 ```
 
 <p align="center">
-  <img src="figures/ansible_ad_hoc_ping_2.png" width="600" height="400"/>
+  <img src="figures/ansible_ad_hoc_host_info.png" width="600" height="400"/>
 </p>
 <p align="center"><strong>Figure 6:</strong> Ad hoc *free -h* command on hosts </p>
 
