@@ -95,19 +95,25 @@ For the purpose of this tutorial, two servers have been made available.  have tw
 ```bash
   nano inventory.ini
 ```
-In the inventory file, lets add two hosts as shown below.
+The inventory.ini file contains a list of hosts that the controller will be managing. Ansible can administer several hundreds and thousands of hosts. For demonstration, lets add two hosts as shown below.
 ```bash
-  [myhost]
+  [myname_host]
   192.168.0.10
-  [azkiflay]
+  [azkiflay_host]
   192.168.0.11
 ```
 
+Then, we can use the ad hoc command below to check connectivity of the controller to a managed host. Note the *-i*, *-m*, and *-u* options are used to specify the inventory file at the controller, the command to execute, and a user name at the managed host, respectively.
 ```bash
-  touch inventory.ini
-  nano inventory.ini
-  ansible -i inventory.ini myhost -m ping -u myname
+  ansible -i inventory.ini myname_host -m ping -u myname
+  ansible -i inventory.ini azkiflay_host -m ping -u azkiflay
 ```
+
+Figure 4 shows the results of the ad hoc ansible tasks above. The ping results indicate that the controller can reach both hosts successfully.
+<p align="center">
+  <img src="figures/ansible_ad_hoc_ping.png" width="600" height="300"/>
+</p>
+<p align="center"><strong>Figure 4:</strong> Checking controller's to hosts using ad hoc command </p>
 
 # Making Changes to Managed Hosts
 The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
