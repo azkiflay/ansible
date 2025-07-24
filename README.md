@@ -28,6 +28,12 @@ ansible --version
 ```
 Instructions to install Ansible in other major operating systems are available [here](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html).
 
+# How Ansible Works
+* Ansible tracks the hosts it manages using its local inventory file.
+* Uses *SSH** to connect to a host or groups of hosts in the inventory file.
+* Transfers one or more Ansible modules to its target host(s).
+* Executes the module(s) at the remote target host(s).
+
 
 # Configuring SSH
 The objective is to setup key-based authentication from the Ansible controller node to managed nodes. The latter use public key of the former to authenticate the controller node, whose private key should be kept locally and securely. In other words, the public key should be known to the managed nodes for them to be able to create a message that can be read only using the private key of the controller node. The authentication process is automatically triggered at each node after the private and public key pair have been configured at the respective host.
