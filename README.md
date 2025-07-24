@@ -71,7 +71,7 @@ A passphrase is requested to access the private key, "azkiflay" in this case, as
 
 Following a successful entry of a password, the public key of the Ansible controller is added to the remote host as depicted in Figure 2.
 <p align="center">
-  <img src="figures/ssh_copy_id_2.png" width="600" height="200"/>
+  <img src="figures/ssh_copy_id_2.png" width="600" height="300"/>
 </p>
 <p align="center"><strong>Figure 2:</strong> Transferring public key to a remote host </p>
 
