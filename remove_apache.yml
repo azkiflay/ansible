@@ -1,0 +1,45 @@
+---
+- name: Completely remove Apache2 and its files
+  hosts: myname_hosts          # <-- use your group/host from inventory.ini
+  become: true              # run with sudo
+  tasks:
+
+    - name: Stop Apache2 service
+      ansible.builtin.service:
+        name: apache2
+        state: stopped
+        enabled: false
+      ignore_errors: true    # in case apache2 isn't installed
+
+    - name: Purge apache2 package
+      ansible.builtin.apt:
+        name: apache2
+        state: absent
+        purge: true
+        autoremove: true
+        update_cache: true
+
+    - name: Autoclean APT cache
+      ansible.builtin.command: apt autoclean
+      args:
+        warn: false
+
+    - name: Remove Apache2 config directory
+      ansible.builtin.file:
+        path: /etc/apache2
+        state: absent
+
+    - name: Remove Apache2 log directory
+      ansible.builtin.file:
+        path: /var/log/apache2
+        state: absent
+
+    - name: Remove default web root (html)
+      ansible.builtin.file:
+        path: /var/www/html
+        state: absent
+
+    - name: Remove /var/www directory (if desired)
+      ansible.builtin.file:
+        path: /var/www
+        state: absent
