@@ -30,7 +30,7 @@ Instructions to install Ansible in other major operating systems are available [
 
 # How Ansible Works
 * Ansible tracks the hosts it manages using its local inventory file.
-* Uses *SSH** to connect to a host or groups of hosts in the inventory file.
+* Uses *SSH* to connect to a host or groups of hosts in the inventory file.
 * Transfers one or more Ansible modules to its target host(s).
 * Executes the module(s) at the remote target host(s).
 
