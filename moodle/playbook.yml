@@ -1,6 +1,6 @@
 ---
 - name: Install Moodle LAMP stack
-  hosts: azkiflay_host, myname_host
+  hosts: ubuntuserver_vm1, ubuntuserver_vm2, azkiflay_host, myname_host
   become: true
   vars:
     protocol: http://
@@ -94,11 +94,6 @@
     - name: Get PHP version
       command: php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;"
       register: phpver
-
-    - name: Reload Apache
-      service:
-        name: apache2
-        state: reloaded
 
     # ------------------------
     # Database credentials

@@ -234,18 +234,32 @@ To run the install_apache.yml playbook:
   ssh azkiflay@192.68.0.11
   sudo apt install python3-pip
   exit
-  ansible-playbook -i inventory.ini moodle_playbook.yml -u azkiflay --become --ask-become-pass --limit azkiflay_host  --check 
-  ansible-playbook -i inventory.ini moodle_playbook.yml -u azkiflay --become --ask-become-pass --limit azkiflay_host 
-  ansible-playbook -i inventory.ini moodle_playbook.yml -u myname --become --ask-become-pass --limit myname_host  --check 
-  ansible-playbook -i inventory.ini moodle_playbook.yml -u myname --become --ask-become-pass --limit myname_host
+  ansible-playbook -i inventory.ini playbook.yml -u azkiflay --become --ask-become-pass --limit azkiflay_host  --check 
+  ansible-playbook -i inventory.ini playbook.yml -u azkiflay --become --ask-become-pass --limit azkiflay_host 
+  ansible-playbook -i inventory.ini playbook.yml -u myname --become --ask-become-pass --limit myname_host  --check 
+  ansible-playbook -i inventory.ini playbook.yml -u myname --become --ask-become-pass --limit myname_host
+  ansible-playbook -i inventory.ini playbook.yml --become -ask-become-pass --limit azkiflay_vm
 ```
 
-## On AWS
 ```bash
-  ansible-playbook -i inventory.ini moodle_playbook.yml moodle_playbook.yml --limit azkiflay_aws --become --ask-become-pass --check
+  ansible-playbook -i inventory.ini playbook.yml --limit ubuntuserver_vm1 -u azkiflay --become --ask-become-pass --check
+```
+
+```bash
+  vagrant box add geerlingguy/rockylinux8 # Downloads Rocky Linux for virtualbox
+  vagrant init geerlingguy/rockylinux8 # Creates `Vagrantfile` in current directory
+  vagrant up
+  vagrant ssh
+  vagrant ssh-config
+  vagrant halt
+  vagrant destroy
 ```
 
 # Future
+* Packer: Build the base images (optional).
+* Terraform: Provisions infrastructure (VMs, networks, cloud services), and deploy the image at scale in cloud or on-prem.
+* Ansible: Configures the OS and software inside those machines
+* Vagrant: used to spin up dev/test VMs quickly and to test the image locally.
 * WinRM and SSH based connection between Ansible controller and managed hosts
 * Real-world Ansible usage scenarios/projects
 
