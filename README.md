@@ -226,6 +226,25 @@ To run the install_apache.yml playbook:
   ansible-playbook -i inventory.ini install_apache.yml -u azkiflay --become  --ask-become-pass # state: present, state: latest --> to install package
 ```
 
+# Sample Application: Moodle
+## Local
+```bash
+  ansible-galaxy collection install community.general
+  ansible-galaxy collection install community.mysql
+  ssh azkiflay@192.68.0.11
+  sudo apt install python3-pip
+  exit
+  ansible-playbook -i inventory.ini moodle_playbook.yml -u azkiflay --become --ask-become-pass --limit azkiflay_host  --check 
+  ansible-playbook -i inventory.ini moodle_playbook.yml -u azkiflay --become --ask-become-pass --limit azkiflay_host 
+  ansible-playbook -i inventory.ini moodle_playbook.yml -u myname --become --ask-become-pass --limit myname_host  --check 
+  ansible-playbook -i inventory.ini moodle_playbook.yml -u myname --become --ask-become-pass --limit myname_host
+```
+
+## On AWS
+```bash
+  ansible-playbook -i inventory.ini moodle_playbook.yml moodle_playbook.yml --limit azkiflay_aws --become --ask-become-pass --check
+```
+
 # Future
 * WinRM and SSH based connection between Ansible controller and managed hosts
 * Real-world Ansible usage scenarios/projects
@@ -236,3 +255,4 @@ To run the install_apache.yml playbook:
   ** git clone https://github.com/geerlingguy/ansible-for-devops
 * Ansible Website, https://docs.ansible.com/, Accessed 24 July - 8 August, 2025
 * DevOps for the Desperate A Hands-on Survival Guide, Bradley Smith, No Starch Press, 2022
+* Moodle: https://docs.moodle.org/500/en/Step-by-step_Installation_Guide_for_Ubuntu

@@ -1,0 +1,16 @@
+# Rocky Linux Installation on USB Drive
+*  Download the ISO: https://rockylinux.org/download
+    ** DVD ISO (full install with most packages) or 
+    ** Minimal ISO (lighter, network install)
+* Save the ISO to your Downloads directory (e.g., ~/Downloads/Rocky-10.0-x86_64-dvd1.iso)
+* Identify your USB drive.
+    ** Look for your USB device (e.g., /dev/sdb).
+    ** WARNING: Double‑check the correct device — writing the image will erase it completely.
+* Create the bootable USB
+    ** WARNING: The following will wipe off any data existing inside the target device! Make you have backed up any data that you may have inside the USB.
+    ```bash
+        sudo dd if=~/Downloads/Rocky-10.0-x86_64-dvd1.iso of=/dev/sdX bs=4M status=progress oflag=sync
+        sync
+        sudo eject /dev/sdX
+    ```
+    ** Replace "/dev/sdX" with your USB device (e.g., /dev/sdb, not a partition like /dev/sdb1).

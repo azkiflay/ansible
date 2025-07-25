@@ -1,0 +1,135 @@
+---
+- name: Install Moodle LAMP stack
+  hosts: azkiflay_host, myname_host
+  become: true
+  vars:
+    protocol: http://
+    website_address: moodle.local          # override with --extra-vars
+    moodle_db_name: moodle
+    moodle_admin_email: aneeye@gmail.com
+    moodle_db_user: moodleuser2
+    moodle_db_pass: MySecurePass123   # you can also generate this dynamically
+
+  tasks:
+  #  - name: Launch EC2 instance
+  #    amazon.aws.ec2_instance:
+  #      name: my-instance
+  #      instance_type: t2.micro
+  #      image_id: ami-12345678
+  #      region: us-east-1
+
+    - name: Update and upgrade packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - apache2
+          - php
+          - libapache2-mod-php
+          - php-mysql
+          - graphviz
+          - aspell
+          - git
+          - clamav
+          - php-pspell
+          - php-curl
+          - php-gd
+          - php-intl
+          - ghostscript
+          - php-xml
+          - php-xmlrpc
+          - php-ldap
+          - php-zip
+          - php-soap
+          - php-mbstring
+          - unzip
+          - mariadb-server
+          - mariadb-client
+          - certbot
+          - python3-certbot-apache
+          - ufw
+          - nano
+        state: present
+
+    - name: Autoremove unnecessary packages
+      apt:
+        autoremove: yes
+
+    - name: Autoclean apt cache
+      apt:
+        autoclean: yes
+
+    - name: Ensure /var/www/html exists
+      file:
+        path: /var/www/html
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+    - name: Create moodledata directory
+      file:
+        path: /var/www/moodledata
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
+        recurse: yes
+
+    - name: Clone Moodle
+      git:
+        repo: https://github.com/moodle/moodle.git
+        dest: /var/www/html/moodle
+        version: MOODLE_500_STABLE
+        force: yes
+
+    - name: Set permissions on moodledata files
+      shell: |
+        find /var/www/moodledata -type f -exec chmod 600 {} \;
+
+    - name: Get PHP version
+      command: php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;"
+      register: phpver
+
+    - name: Reload Apache
+      service:
+        name: apache2
+        state: reloaded
+
+    # ------------------------
+    # Database credentials
+    # ------------------------
+    - name: Create Moodle database
+      shell: >
+        mysql -e "CREATE DATABASE moodle DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+      args:
+        executable: /bin/bash
+
+    - name: Create Moodle database user
+      shell: >
+        mysql -e "CREATE USER '{{ moodle_db_user }}'@'localhost' IDENTIFIED BY '{{ moodle_db_pass }}';"
+      args:
+        executable: /bin/bash
+
+    - name: Grant privileges to Moodle user
+      shell: >
+        mysql -e "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER ON moodle.* TO '{{ moodle_db_user }}'@'localhost';"
+      args:
+        executable: /bin/bash
+
+    - name: Print Moodle database user password
+      debug:
+        msg: "Your Moodle user password is {{ moodle_db_pass }}. Write this down as you will need it in a web browser install."
+    
+    # Moodle configuration on the Webserver
+    - name: Set ownership of Moodle directory to www-data
+      file:
+        path: /var/www/html/moodle
+        owner: www-data
+        group: www-data
+        recurse: yes
+        mode: '0755'
