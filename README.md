@@ -217,12 +217,13 @@ To easily compare with the previous commands for unistalling Apache, let us conv
 Run the remove_apache.yml playbook as follows:
 
 ```bash
-  ansible-playbook -i inventory.ini remove_apache.yml -u azkiflay --become  --ask-become-pass
+  ansible-playbook -i inventory.ini install_apache.yml --list-hosts # View affected hosts
+  ansible-playbook -i inventory.ini remove_apache.yml -u azkiflay --become  --ask-become-pass # state: absent --> to remove package
 ```
 
 To run the install_apache.yml playbook:
 ```bash
-  ansible-playbook -i inventory.ini install_apache.yml -u azkiflay --become  --ask-become-pass # --> asks for root
+  ansible-playbook -i inventory.ini install_apache.yml -u azkiflay --become  --ask-become-pass # state: present, state: latest --> to install package
 ```
 
 # Future
@@ -232,5 +233,6 @@ To run the install_apache.yml playbook:
 
 # Refrences
 * Ansible for DevOps Server and configuration management for humans 2nd Edition, Jeff Geerling, Lean Publishing, 2023
+  ** git clone https://github.com/geerlingguy/ansible-for-devops
 * Ansible Website, https://docs.ansible.com/, Accessed 24 July - 8 August, 2025
 * DevOps for the Desperate A Hands-on Survival Guide, Bradley Smith, No Starch Press, 2022
