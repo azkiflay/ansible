@@ -63,6 +63,10 @@ After ensuring the managed hosts can be accessed using a password-based authenti
 
 ```bash
   ssh-copy-id -i ~/.ssh/azkiflay.pub myname@192.168.0.10 # ssh-copy-id --> uses locally available keys to authorise logins on a remote machine
+  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.11
+  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.12
+  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.13
+  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.14
 ```
 
 A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase.
@@ -112,7 +116,7 @@ The following shows an example of inventory file that consists of five servers i
   [group2]
   192.168.0.13
   192.168.0.14
-  [group3]:
+  [group3]
   192.168.0.12
   192.168.0.14
 ```
@@ -138,9 +142,9 @@ The same inventory file can be created in YAML.
         192.168.0.12
         192.168.0.14
 ```
-By default, there are *all* and *ungrouped* groups in Ansible. The former contains all hosts, while the latter contains hosts that do not belong to another group except all. In the above example, the host 192.168.0.10 belongs to *ungrouped*. The hosts 192.168.0.11 and 192.168.0.11 are members of *group1*. Hosts 192.168.0.13 and 192.168.0.14 belong to *group2*. Lastly, *group3* consists of hosts 192.168.0.12 and 192.168.0.14. Every host is a member of the *all* group.
+By default, there are *all* and *ungrouped* groups in Ansible. The former contains all hosts, while the latter contains hosts that do not belong to another group except all. In the above example, the host 192.168.0.10 belongs to *ungrouped*. The hosts 192.168.0.11 and 192.168.0.11 are members of *group1*. Hosts 192.168.0.13 and 192.168.0.14 belong to *group2*. Lastly, *group3* consists of hosts 192.168.0.12 and 192.168.0.14. Every host is a member of the *all* group. A host can belong to more than one group. Group memberships of a host are usually determined by *what* the host does, *where* it is located, and *when* in the development pipeline it is utilized.
 
-A host can belong to more than one group. Group memberships of a host are usually determined by *what* the host does, *where* it is located, and *when* in the development pipeline it is utilized.
+There are ways to create hosts in an inventory using pattern matching, adding a range rather than listing each host. For example, *www[01:50].local* creates *50* hosts, while db-[a:z].local creates *26* hosts.
 
 
 # Ad Hoc Commands
