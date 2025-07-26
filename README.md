@@ -95,10 +95,13 @@ The reason for the passwordless login is because the public key of the controlle
 <p align="center"><strong>Figure 3:</strong> Public key-based access to a remote host </p>
 
 # List of Managed Hosts/Servers
-The inventory.ini file contains a list of hosts that the controller will be managing. Ansible can administer several hundreds and thousands of hosts. For demonstration, lets add two hosts as shown below. For the purpose of this tutorial, two servers have been made available.
+Ansible is a configuration management system, and for the controller to enforce any sort of configuration changes on servers, first it must keep a list of the servers using their IP addresses or domain names. Such a list is known as "*inventory file*", which Ansible uses to track the hosts that it manages. 
 
+The default location for system-wide inventory file is under "*/etc/ansible/hosts*". But this is not always the case, depending on the way Ansible is installed. For example, the "*apt*"-based installation in Ubuntu 24.04 does not create "*/etc/ansible/hosts*". In any case, it is recommended to maintain an inventory for each project separately. Conveniently, the inventory file can be named "*inventory.ini*" or "*hosts.ini*". But it can be given any other valid file name. Essentially, the inventory file contains a list of hosts that the Ansible controller manages. Ansible can administer several hundreds and thousands of hosts. 
+
+For for example, the following creates an inventory in the current directoy.
 ```bash
-  nano inventory.ini
+  nano ./inventory.ini
 ```
 
 ```bash
@@ -107,6 +110,8 @@ The inventory.ini file contains a list of hosts that the controller will be mana
   [azkiflay_host]
   192.168.0.11
 ```
+
+
 # Ad Hoc Commands
 The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
 
