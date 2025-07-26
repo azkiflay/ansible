@@ -103,13 +103,44 @@ For for example, the following creates an inventory in the current directoy.
 ```bash
   nano ./inventory.ini
 ```
-
+The following shows an example of inventory file that consists of five servers in it. Four of the servers are under two groups, *group1* and *group2*, while the first server is not grouped.
 ```bash
-  [myname_host]
   192.168.0.10
-  [azkiflay_host]
+  [group1]
   192.168.0.11
+  192.168.0.12
+  [group2]
+  192.168.0.13
+  192.168.0.14
+  [group3]:
+  192.168.0.12
+  192.168.0.14
 ```
+
+The same inventory file can be created in YAML.
+```bash
+  nano ./inventory.yml
+```
+```bash
+  all:
+    hosts:
+      192.168.0.10
+    children:
+      group1:
+        hosts:
+          192.168.0.11
+          192.168.0.12
+      group2:
+        hosts:
+          192.168.0.13
+          192.168.0.14
+      group3:
+        192.168.0.12
+        192.168.0.14
+```
+By default, there are *all* and *ungrouped* groups in Ansible. The former contains all hosts, while the latter contains hosts that do not belong to another group except all. In the above example, the host 192.168.0.10 belongs to *ungrouped*. The hosts 192.168.0.11 and 192.168.0.11 are members of *group1*. Hosts 192.168.0.13 and 192.168.0.14 belong to *group2*. Lastly, *group3* consists of hosts 192.168.0.12 and 192.168.0.14. Every host is a member of the *all* group.
+
+A host can belong to more than one group. Group memberships of a host are usually determined by *what* the host does, *where* it is located, and *when* in the development pipeline it is utilized.
 
 
 # Ad Hoc Commands
