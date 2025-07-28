@@ -27,7 +27,7 @@ Broadly, the Ansible workflow includes the following major steps:
 * Transfers one or more Ansible modules to host(s).
 * Executes the module(s) at the host(s).
 
-# Ansible Installation
+# Installation
 The following commands can be used to install Ansible on Ubuntu. While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
 
 ```bash
