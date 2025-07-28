@@ -85,7 +85,7 @@ Note that the public key was created with a custom name earlier. Therefore, that
 </p>
 <p align="center"><strong>Figure 1:</strong> Unlocking the private key </p>
 
-Following a successful entry of a password, the public key of the Ansible controller is added to the remote host as depicted in Figure 2.
+Following a successful entry of a password, the public key of the Ansible controller is added to the managed host as depicted in Figure 2.
 <p align="center">
   <img src="figures/ssh_copy_id_2.png" width="500" height="300"/>
 </p>
