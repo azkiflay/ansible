@@ -54,7 +54,7 @@ To this end, public and private keys are generated at the controller. Subsequent
 Put another way, to configure the controller connection with the managed hosts using a key-based authentication, the controller's private and public keys must be available at the right places. However, before the key-based authentication can be configured, there must be a pre-existing password-based access to the managed hosts from the controller.
 
 ## Creating public and private keys
-The *ssh-keygen* command is widely used to create the private and public keys for and at the controller. For example, the following creates a private and public keys and saves them inside the *~/.ssh* directory. The file name of the private key is *ansible_key*, while the public is *ansible_key.pub*. While any name can be given for the key pairs, the *ssh-keygen* command provides default names of *id_rsa*, and *id_rsa.pub*, for the private and public keys, respectively.
+The *ssh-keygen* command is widely used to create the private and public keys for and at the controller. For example, the following creates private and public keys and saves them inside the *~/.ssh* directory. In this case, the file name of the private key is *ansible_key*, while the public is *ansible_key.pub*. While any name can be given for the key pairs, the *ssh-keygen* command provides default names of *id_rsa*, and *id_rsa.pub*, for the private and public keys, respectively.
 
 ```bash
   ssh-keygen -t rsa -f ~/.ssh/ansible_key
