@@ -1,6 +1,6 @@
 
 # Introduction
-Online services and applications are supported by physical and virtual servers. These servers can be configured individually, but doing so is tiring, time-consuming and error prone. Ansible is an open-source Configuration Management (CM) tool that enables system administrators to control the state of servers. [Puppet](https://www.puppet.com/), [Chef](https://www.chef.io/products/chef-infra), and [Salt](https://saltproject.io/) are other CM tools. CM tools are used to define and enforce desired state for servers, as well as other networked hosts and devices. For example, software package installation, configuration, permissions, and running the necessary services are among the things Ansible and other CMs can do. 
+This section introduces Ansible, a popular Configuration Management (CM) tool. Online services and applications are supported by physical and virtual servers. These servers can be configured individually, but doing so is tiring, time-consuming and error prone. Ansible is an open-source CM tool that enables system administrators to control the state of servers. [Puppet](https://www.puppet.com/), [Chef](https://www.chef.io/products/chef-infra), and [Salt](https://saltproject.io/) are other CM tools. CM tools are used to define and enforce desired state for servers, as well as other networked hosts and devices. For example, software package installation, configuration, permissions, and running the necessary services are among the things Ansible and other CMs can do. 
 
 Ansible is written in Python, and it uses a domain-specific language ([DSL](https://en.wikipedia.org/wiki/Domain-specific_language)) to describe the state of servers. Moreover, Ansible can be used for deploying software that is ready to be released from a developers team. To achieve that, Ansible copies required files to servers, change configuration and environment variables, and start services in a particular order. 
 
@@ -14,6 +14,7 @@ Moreover, unlike other CM systems, Ansible is agentless, meaning it does not req
 <!-- Using Ansible (User and Group Mangement, Two-factor authentication over SSH, User security policy such as controlling user commands, Host-based Firewall Automation) -->
 
 # Terminology and Workflow
+Ansible terms and workflow are summarized in this seciton.
 * **Control node**: a Linux/Unix machine where Ansible has been installed. It is possible to have more than one control nodes. A Windows machine cannot be a control node.
 * **Managed nodes (hosts)**: Network devices or servers managed by Ansible. Managed hosts do not have have Ansible installed on them.
 * **Inventory**: a file that contains a list/group of hosts that an Ansible control node works with. Inventory file is created at the control node, specifying details of managed hosts such as IP addresses or domain names. Host information in an inventory file can be organized in groups and subgroups. An inventory file is a text file that is usually created with an **.ini**, **.yml** extension, or no extension.
