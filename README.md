@@ -286,7 +286,7 @@ Vagrant is an IaC tool that is utilized for creating and managing VMs. To descri
 ```
 The last command will display a message stating that a "Vagrantfile" has been placed in the current directory as shown in Figure 8 below. 
 <p align="center">
-  <img src="figures/vagrantfile.png" width="600" height="400" />
+  <img src="figures/vagrantfile.png" width="400" height="300" />
 </p>
 <p align="center"><strong>Figure 8:</strong> Vagrantfile </p>
 
