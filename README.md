@@ -435,7 +435,9 @@ To run the install_apache.yml playbook:
   ansible-playbook -i inventory.ini install_apache.yml -u azkiflay --become  --ask-become-pass # state: present, state: latest --> to install package
 ```
 
-# Sample Application: Moodle
+# Sample Application
+<!-- Moodle -->
+
 ## Local
 ```bash
   ansible-galaxy collection install community.general
