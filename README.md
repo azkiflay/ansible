@@ -9,7 +9,7 @@ While tools such as [Vagrant](https://developer.hashicorp.com/vagrant) and [Terr
 
 Ansible utilizes Yet Another Markup Language (YAML) to describe the desired state of infrastructure. As a result, Ansible has a *declarative* configuration style rather than *imperative*. In the case of the latter, the user is required to specify the exact details of the infrastructure, while a simpler description suffices in Ansible.
 
-Moreover, unlike other CM systems, Ansible is agentless because it does not require a software agent to be installed on the managed hosts. Ansible uses Secure Shell (SSH) to push configuration to hosts and make the desired changes accordingly. With SSH being the most secure method to connect to remote hosts, Ansible leverages SSH to configure a number of servers remotely.
+Moreover, unlike other CM systems, Ansible is agentless because it does not require a software agent to be installed on the managed hosts, thereby reducing security risks and administration efforts at the managed end hosts. Ansible uses Secure Shell (SSH) to push configuration to hosts and make the desired changes accordingly. With SSH being the most secure method to connect to remote hosts, Ansible leverages SSH to configure a number of servers remotely.
 
 <!-- Using Ansible (User and Group Mangement, Two-factor authentication over SSH, User security policy such as controlling user commands, Host-based Firewall Automation) -->
 
