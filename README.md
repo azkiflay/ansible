@@ -68,7 +68,7 @@ The *ssh-keygen* command is widely used to create the private and public keys fo
 To be able to transfer the controller's public key to the managed hosts, you need to have an existing password-based access to the latter. In other words, you should already be able to use *ssh* to login remotely to the managed hosts, using the respective user name and password at each host, as shown in the following example.
 
 ```bash
-  ssh azkiflay@192.168.0.10 # Replace azkiflay & IP with your own.
+  ssh myname@192.168.0.10 # Replace myname & IP with your own.
 ```
 
 After ensuring the managed hosts can be accessed using a password-based authentication, the next step is to configure *ssh* to use the private and public keys created earlier for authenticating the Ansible controller with the managed hosts. 
@@ -77,7 +77,7 @@ However, the managed hosts do not have the public key of the controller yet. The
 
 ```bash
   # ssh-copy-id --> uses locally available keys to authorise logins on a remote machine
-  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.10 
+  ssh-copy-id -i ~/.ssh/azkiflay.pub myname@192.168.0.10 
 ```
 Note that the public key was created with a custom name earlier. Therefore, that the name of the public key has to be specified using the *-i* option. A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase. Enter that to proceed.
 <p align="center">
@@ -91,13 +91,13 @@ Following a successful entry of a password, the public key of the Ansible contro
 </p>
 <p align="center"><strong>Figure 2:</strong> Transferring public key to a remote host </p>
 
-Consequently, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. Therefore, the controller can now access the remote managed host without a password, using the public key. As shown in Figure 3, when "*ssh azkiflay@192.168.0.10*" is issued to access the managed host, no prompt appears asking for a password.
+Consequently, the public key of the Ansible controller has been copied to the remote host's authorized_keys file. Therefore, the controller can now access the remote managed host without a password, using the public key. As shown in Figure 3, when "*ssh myname@192.168.0.10*" is issued to access the managed host, no prompt appears asking for a password.
 
 ```bash
-  ssh azkiflay@192.168.0.10 
-  # ssh -p port_number azkiflay@192.168.0.10 # If ssh is not running on the default port number 22
-  # ssh azkiflay@192.168.0.10 command_to_run # To execute a single command on a remote system
-  # ssh -X azkiflay@192.168.0.10 # If X11 forwarding is enabled on both local and remote systems
+  ssh myname@192.168.0.10 
+  # ssh -p port_number myname@192.168.0.10 # If ssh is not running on the default port number 22
+  # ssh myname@192.168.0.10 command_to_run # To execute a single command on a remote system
+  # ssh -X myname@192.168.0.10 # If X11 forwarding is enabled on both local and remote systems
   exit # Terminate the connection
 ```
 
