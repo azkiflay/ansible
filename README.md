@@ -188,7 +188,7 @@ It is also possible to check connectivity to individual managed hosts. For examp
 <p align="center">
   <img src="figures/ansible_ad_hoc_ping.png" width="600" height="400"/>
 </p>
-<p align="center"><strong>Figure 5:</strong> Checking controller's connectivity to individual hosts using ad hoc command </p>
+<p align="center"><strong>Figure 5:</strong> Checking connectivity to individual hosts using ad hoc command </p>
 
 The first ad hoc command results in "UNREACHABLE!" error for both hosts. Paricularly, the *msg* part of the results states ""msg": "Failed to connect to the host via ssh: aheb@192.168.0.10: Permission denied (publickey,password)". This makes sense because the local user name *aheb* does not exist on both of the hosts in the inventory.ini file. 
 
