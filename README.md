@@ -30,7 +30,7 @@ Broadly, the **Ansible workflow** includes the following major steps:
 * **Executes the module(s)** at the host(s).
 
 # Installation
-The following commands can be used to install Ansible on Ubuntu Operating System (OS). While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
+The following commands can be used to install Ansible on [Ubuntu](https://ubuntu.com/) Operating System (OS). While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
 
 ```bash
 sudo apt update
