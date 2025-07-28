@@ -103,7 +103,7 @@ Consequently, the public key of the Ansible controller has been copied to the re
 
 The reason for the passwordless login is because the public key of the controller has now been added to the managed host's **authorized_keys** file. The presence of the public key at the managed host can be verified by connecting to it, and running "*cat ~/.ssh/authorized_keys*" on the terminal. With regards to the private key, the clue is in the name. It should be kept private and secure at the controller, which uses it to decrypt messages from managed hosts. 
 
-Figure 3 depicts that the Ansible controller has been successfully authenticated by managed host (192.168.0.10). This was possible because the host has the controller's public key in its *authorized_keys* files, also shown in the second line of the "*~/.ssh/authorized_keys*"" command issued at the managed host.
+Figure 3 depicts that the Ansible controller has been successfully authenticated by the managed host (192.168.0.10). This was possible because the host has the controller's public key in its *authorized_keys* files, also shown in the second line of the "*~/.ssh/authorized_keys*"" command issued at the managed host.
 
 <p align="center">
   <img src="figures/ssh_public_key_login.png" width="600" height="300"/>
