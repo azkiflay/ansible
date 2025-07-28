@@ -117,11 +117,11 @@ The default location for a system-wide inventory file is under "*/etc/ansible/ho
 
 Conveniently, the inventory file can be named "*inventory.ini*" or "*hosts.ini*". But it can also be given any other valid file name. While it is also possible to create the inventory file without any file extension, another common way to create the inventory file is as a YAML ("*.yml*") file. Essentially, the inventory file contains a list of hosts that the Ansible controller manages. Several hundreds and thousands of hosts can be administered using Ansible.
 
-For for example, the following creates an inventory in the current directoy.
+For for example, the following creates an inventory file in the current directoy.
 ```bash
   nano ./inventory.ini
 ```
-The following shows an example of inventory file that consists of five servers in it. Four of the servers are under two groups, *group1* and *group2*, while the first server is not grouped.
+The following shows sample contents of the *inventory.ini* file, listing five servers in it. Four of the servers are under two groups, *group1* and *group2*, while the first server is not grouped.
 ```bash
   192.168.0.10
   [group1]
