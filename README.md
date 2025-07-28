@@ -76,11 +76,8 @@ After ensuring the managed hosts can be accessed using a password-based authenti
 However, the managed hosts do not have the public key of the controller yet. Therefire, you need to transfer the public key to the hosts first. To do that, *ssh-copy-id* command followed by each host's IP address or domain name is used as shown in the following example.
 
 ```bash
-  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.10 # ssh-copy-id --> uses locally available keys to authorise logins on a remote machine
-  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.11
-  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.12
-  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.13
-  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.14
+  # ssh-copy-id --> uses locally available keys to authorise logins on a remote machine
+  ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.10 
 ```
 Note that the public key was created with a custom name earlier. Therefore, that the name of the public key has to be specified using the *-i* option. A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase.
 <p align="center">
