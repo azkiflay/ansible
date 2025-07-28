@@ -19,7 +19,7 @@ Moreover, unlike other CM systems, Ansible is agentless, meaning it does not req
 * **Inventory**: a file that contains a list/group of hosts that an Ansible control node works with. Inventory file is created at the control node, specifying details of managed hosts such as IP addresses or domain names. Host information in an inventory file can be organized in groups and subgroups. An inventory file is a text file that is usually created with an **.ini**, **.yml** extension, or no extension.
 * **Module**: a piece of code that Ansible executes to perform specific actions on different operating systems and environments. One more more modules can be used in *tasks* and *playbooks*.
 * **Tasks**: Units of action in Ansible. For example, a command to install software on a managed host is a task.
-* **Playbook**: an *ordered lists of tasks* that can be run by the control node to configure remote hosts. Playbooks are run in control node to configure remote hosts. YAML is used to write playbooks, which can include tasks and variables.
+* **Playbook**: an *ordered lists of tasks* used to configure remote hosts. Playbooks are run in a control node to configure remote hosts. **YAML** is used to write playbooks, which can include tasks and variables.
 
 Broadly, the Ansible workflow includes the following major steps:
 * Ansible controller uses *SSH* to connect to a host or groups of hosts.
