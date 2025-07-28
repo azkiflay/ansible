@@ -108,7 +108,7 @@ Figure 3 depicts that the Ansible controller has been successfully authenticated
 <p align="center">
   <img src="figures/ssh_public_key_login.png" width="600" height="300"/>
 </p>
-<p align="center"><strong>Figure 3:</strong> Public key-based access to a remote host </p>
+<p align="center"><strong>Figure 3:</strong> Public key-based access to a managed host </p>
 
 # Inventory
 Ansible is a configuration management system, and for the controller to enforce any sort of configuration changes on servers, first it must keep a list of the servers using their IP addresses or domain names. Such a list is known as "*inventory file*", which Ansible uses to track the hosts that it manages. 
