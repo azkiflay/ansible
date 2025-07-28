@@ -79,7 +79,7 @@ However, the managed hosts do not have the public key of the controller yet. The
   # ssh-copy-id --> uses locally available keys to authorise logins on a remote machine
   ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.10 
 ```
-Note that the public key was created with a custom name earlier. Therefore, that the name of the public key has to be specified using the *-i* option. A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase.
+Note that the public key was created with a custom name earlier. Therefore, that the name of the public key has to be specified using the *-i* option. A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase. Enter that to proceed.
 <p align="center">
   <img src="figures/ssh_copy_id_1.png" width="500" height="200"/>
 </p>
