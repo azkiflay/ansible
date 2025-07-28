@@ -286,7 +286,7 @@ Vagrant is an IaC tool that is utilized for creating and managing VMs. To descri
 ```
 The last command will display a message stating that a "Vagrantfile" has been placed in the current directory as shown in Figure 8 below. 
 <p align="center">
-  <img src="figures/vagrantfile.png" width="400" height="400" />
+  <img src="figures/vagrantfile.png" width="600" height="400" />
 </p>
 <p align="center"><strong>Figure 8:</strong> Vagrantfile </p>
 
@@ -296,7 +296,7 @@ The following *vagrant up* command creates the VM according to the Vagrantfile. 
   vagrant up
 ``` 
 <p align="center">
-  <img src="figures/vagrant_up.png" width="400" height="400"/>
+  <img src="figures/vagrant_up.png" width="600" height="400"/>
 </p>
 <p align="center"><strong>Figure 9:</strong> Creating as per Vagrantfile </p>
 
@@ -311,7 +311,7 @@ It is important to note that if the Vagrantfile does not exist, *vagrant up* wil
 ```
 Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
 <p align="center">
-  <img src="figures/vagrant_up2.png" width="400" height="400"/>
+  <img src="figures/vagrant_up2.png" width="600" height="400"/>
 </p>
 <p align="center"><strong>Figure 10:</strong> Attempting to create VM without Vagrantfile </p>
 
@@ -321,7 +321,7 @@ Vagrantfile is a description of how a VM should be buit and provided. The file i
 Figure 11 shows a screenshot of a sample Vagrantfile utilized for this tutorial.
 Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
 <p align="center">
-  <img src="figures/vagrantfile2.png" width="400" height="400"/>
+  <img src="figures/vagrantfile2.png" width="600" height="400"/>
 </p>
 <p align="center"><strong>Figure 11:</strong> Vagranfile Example </p>
 
@@ -340,7 +340,7 @@ The following commands show various changes on a VM instance.
 
 With the VM running, we can connect to it using *vagrant ssh*. Figure 12 a screenshot of a connection to the Ubuntu 20.04 VM running inside VirtualBox as discussed earlier. Basic OS details of the VM can be seen after the connection using SSH.
 <p align="center">
-  <img src="figures/vagrant_ssh.png" width="400" height="400"/>
+  <img src="figures/vagrant_ssh.png" width="600" height="400"/>
 </p>
 <p align="center"><strong>Figure 12:</strong> SSH connection to the VM </p>
 
