@@ -340,7 +340,7 @@ The following commands show various changes on a VM instance.
 
 With the VM running, we can connect to it using *vagrant ssh*. Figure 12 a screenshot of a connection to the Ubuntu 20.04 VM running inside VirtualBox as discussed earlier. Basic OS details of the VM can be seen after the connection using SSH.
 <p align="center">
-  <img src="figures/vagrant_ssh.png" width="300" height="400"/>
+  <img src="figures/vagrant_ssh.png" width="400" height="300"/>
 </p>
 <p align="center"><strong>Figure 12:</strong> SSH connection to the VM </p>
 
