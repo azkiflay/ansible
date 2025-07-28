@@ -266,7 +266,7 @@ To run an application within a virtual machine (VM), the VM needs to be created 
   sudo apt install virtualbox-guest-additions-iso # TO REMOVE: sudo apt remove virtualbox-guest-additions-iso # If mismatch with Vagrant's expected version, 'vagrant up' won't work.
   vagrant plugin install vagrant-vbguest # On your host machine, install the vagrant-vbguest plugin
   ```
-# Infrastructure as Code
+<!-- # Infrastructure as Code -->
 ## Vagrant for Infrastructure as Code
 Vagrant is an IaC tool that is utilized for creating and managing VMs. To describe the VM infrastructure, Vagrant uses a file named Vagrantfile. To manage infrastructure, first Vagrant needs to be installed in the local host.
 
@@ -435,7 +435,7 @@ To run the install_apache.yml playbook:
   ansible-playbook -i inventory.ini install_apache.yml -u azkiflay --become  --ask-become-pass # state: present, state: latest --> to install package
 ```
 
-# Sample Application
+<!-- # Sample Application -->
 <!-- Moodle 
 ## Local
 -->
