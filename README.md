@@ -311,7 +311,7 @@ It is important to note that if the Vagrantfile does not exist, *vagrant up* wil
 ```
 Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
 <p align="center">
-  <img src="figures/vagrant_up2.png" width="600" height="400"/>
+  <img src="figures/vagrant_up2.png" width="400" height="300"/>
 </p>
 <p align="center"><strong>Figure 10:</strong> Attempting to create VM without Vagrantfile </p>
 
