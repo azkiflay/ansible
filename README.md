@@ -224,6 +224,141 @@ Having tested the connectivity, you can issue ad hoc commands to get some detail
 
 
 
+
+
+# Provisioning with Vagrant
+This section discusses how infrastructure can be tested locally using Vagrant IaC, VirtualBox, and Ansible as CM to provision a new server. </br>
+
+<!--
+Broadly speaking, DevOps is about collaboration between development and operations teams. This tutorial demonstrates various concepts and tools for DevOps. In particular, concepts such as *Infrastructure as Code (IaC)*, *Configuraation Management (CM)*, *Containerization and Orchestration*, *Delivery*, *Monitoring and Alerting*, and *Troubleshooting* will be covered.
+
+* Infrastructure as Code (IaC) means using code to describe and manage infrastructure like VMs, network switches, and cloud resources.
+* Configuration Management (CM) is the process of configuring the resources described in IaC for a specific purpose in a repeatable and predictable manner.
+
+* Microservices, cloud-based and containerized applications, automated CI/CD pipelines, observability through logging, monitoring and alerting.
+* Collaboration of feature teams (development) and operations/sysadmin teams to deliver predictable and reliable software.
+
+* Introduction
+* Infrastructure as Code (IaC) using Vagrant, Terraform ("Building systems with a repeatable, versioned, and predictable state.")
+
+* Docker for Containerized Application
+* Kubernetes and Minikube for Container Orchestration (Kubernetes manifests, Microservices)
+* Skaffold to create a CI/CD pipeline on a local Kubernetes cluster (Automated code delivery using Continuous Integration and Continous Delivery (CI/CD) pipelines)
+  ** Jenkins
+* Prometheus, Alertmanager, Grafana for Observability (logging, tracing, monitoring and alerting)
+* Troubleshooting Hosts
+* Real-world applications/projects -- Moodle
+-->
+
+## Setting Up a Virtual Machine
+While a cloud-based environment is the most common scenario, sometimes it is necessary to test the infrastructure in a local environment. Most of the configurations and commands can also work in a cloud-based environment with minor modifications. To simulate multiple hosts locally, this tutorial uses a VirtualBox as a virtualization software.
+
+To run an application within a virtual machine (VM), the VM needs to be created first. Subsequently, the VM and the application need to be configured in a specific way. In DevOps lingo, these steps are called *provisining*, and *configuration management*, respectively. Provisining can be done using tools such as *Vagrant* and *Terraform*, while *Ansible* is a popular configuration management tool. Vagrant and Ansible are used in this tutorial. Vagrant is an IaC tool, whereas Ansible is a CM tool.
+
+## VirtualBox Installation on Ubuntu 24.04 LTS
+* Download and install VirtualBox for Ubuntu/Debian from https://www.virtualbox.org/wiki/Downloads/. Download the VirtualBox *.deb* package for Ubuntu 20.04 if you would like to follow a similar environment as in this tutorial. For the purposes of this tutorial, the host machine is running Ubuntu 24.04 LTS, while the VM that will be created and managed will be Ubuntu 20.04. The reason for the later is because that is latest distribution available from Vagrant.
+  ```bash 
+  sudo apt update
+  sudo apt install -y build-essential dkms linux-headers-$(uname -r)
+  sudo apt install virtualbox-7.1 # sudo apt remove virtualbox-7.1
+  sudo apt --fix-broken install
+  sudo dpkg -i ~/Downloads/virtualbox-7.1_7.1.12-169651~Ubuntu~focal_amd64.deb # TO ROMOVE: sudo apt remove virtualbox
+  sudo apt install virtualbox-guest-additions-iso # TO REMOVE: sudo apt remove virtualbox-guest-additions-iso # If mismatch with Vagrant's expected version, 'vagrant up' won't work.
+  vagrant plugin install vagrant-vbguest # On your host machine, install the vagrant-vbguest plugin
+  ```
+# Infrastructure as Code
+## Vagrant for Infrastructure as Code
+Vagrant is an IaC tool that is utilized for creating and managing VMs. To describe the VM infrastructure, Vagrant uses a file named Vagrantfile. To manage infrastructure, first Vagrant needs to be installed in the local host.
+
+## Vagrant Installation on Ubuntu 24.04 LTS
+```bash
+wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg # On "Enter new filename: ", input a file name, say 'vagrant'.
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install vagrant
+vagrant --version # For a successful installation, this returns something like "Vagrant 2.4.7".
+```
+
+## Testing Vagrant
+```bash
+  mkdir playbooks
+  cd playbooks
+  vagrant init ubuntu/focal64
+```
+The last command will display a message stating that a "Vagrantfile" has been placed in the current directory as shown in Figure 1 below. 
+<p align="center">
+  <img src="figures/vagrantfile.png" width="300" height="300" />
+</p>
+<p align="center"><strong>Figure 1:</strong> Vagrantfile </p>
+
+The following *vagrant up* command creates the VM according to the Vagrantfile. Figure 2 shows the progress of creating the VM infrastructure.
+
+```bash
+  vagrant up
+``` 
+<p align="center">
+  <img src="figures/vagrant_up.png" width="400" height="300"/>
+</p>
+<p align="center"><strong>Figure 2:</strong> Creating as per Vagrantfile </p>
+
+It can be seen that "ubuntu/focal" has been imported for installation. Other available Ubuntu distributions that can be installed using Vagrant are availabe at https://portal.cloud.hashicorp.com/vagrant/discover. Moreover, the VM has been given a name that starts with the current working directory (*playbooks*) followed by *default* and a number string. After other similar configurations are made, the VM is finally booted up and ready for use.
+
+It is important to note that if the Vagrantfile does not exist, *vagrant up* will not work. In this case, Vagrantfile is under the *playbooks* directory. To see what happens when the Vagrantfile is not present in the working directory, lets move up to the parent directory of *playbooks* and run *vagrant up* from there.
+
+```bash
+  cd ..
+  ls -a # No Vagrantfile here
+  vagrant up
+```
+Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 3.
+<p align="center">
+  <img src="figures/vagrant_up2.png" width="300" height="300"/>
+</p>
+<p align="center"><strong>Figure 3:</strong> Attempting to create VM without Vagrantfile </p>
+
+Therefore, it is important to ensure there is a Vagrantfile present. The best practice is to have a Vagrantfile for each IaC project.
+Vagrantfile is a description of how a VM should be buit and provided. The file is written in Ruby programming language. Vagrant support many OS images, which are referred to as *boxes*. The list OSes supported by Vagrant can be found here: https://portal.cloud.hashicorp.com/vagrant/discover. To specificy the OS image, Vagrant uses *config.vm.box* entry in Vagrantfile. For example, "config.vm.box = "ubuntu/focal64" describes an Ubuntu 20.04 base image for installation.
+
+Figure 4 shows a screenshot of a sample Vagrantfile utilized for this tutorial.
+Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 3.
+<p align="center">
+  <img src="figures/vagrantfile2.png" width="300" height="400"/>
+</p>
+<p align="center"><strong>Figure 4:</strong> Vagranfile Example </p>
+
+In the above sample Vagrantfile, it can be seen that the VM's hostname has been set to "azkiflay", while the *network* has been configure *public_network* to use a *bridge* to the hosts Wi-Fi interface (*wlo1*).
+
+The following commands show various changes on a VM instance.
+```bash
+  vagrant up # Starts and restarts a VM according to Vagrantfile
+  vagrant halt # Shuts down a running VM forcefully
+  vagrant destroy # Deletes a running VM
+  vagrant suspend # Suspends the VM
+  vagrant up
+  vagrant status # Checks that status of a running VM
+  vagrant ssh # Connects to the VM over a Secure Shell (SSH)
+```
+
+With the VM running, we can connect to it using *vagrant ssh*. Figure 5 a screenshot of a connection to the Ubuntu 20.04 VM running inside VirtualBox as discussed earlier. Basic OS details of the VM can be seen after the connection using SSH.
+<p align="center">
+  <img src="figures/vagrant_ssh.png" width="300" height="400"/>
+</p>
+<p align="center"><strong>Figure 5:</strong> SSH connection to the VM </p>
+
+
+```bash
+  ssh-keygen -t rsa -f ~/.ssh/azkiflay -C azkiflay
+  ls -lh ~/.ssh/
+  nano ~/.ssh/azkiflay # Private key
+  nano ~/.ssh/azkiflay.pub # Public key
+  vagrant ssh
+  vagrant ssh-config
+  ssh vagrant@127.0.0.1 -p 2222 -i /media/HD1TB/devops/devops_for_the_desperate/vagrant/.vagrant/machines/default/virtualbox/private_key
+  vagrant provision
+  ssh -i ~/.ssh/azkiflay -p 2222 azkiflay@localhost
+  su vagrant # Change to vagrant user. Default password: vagrant
+```
+
+
 # Playbooks
 While ad hoc commands are useful for running one-off tasks, they are not suitable for many tasks that have to be done in a repeatable manner, at different hosts and times. On the other hand, automation, repeatability and version control are some of Ansible's great features. That's where **playbooks** come in. Playbooks are a set of instructions (an *ordered list of tasks*) that aim to bring server(s) to a specific configuration state. Playbooks are written in YAML, and they are to be executed (*played*) on the managed server(s). A playbook can be a subset of another playbook, whose task gets extended due to the addition of the subset playbook.
 
