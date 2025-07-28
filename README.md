@@ -316,7 +316,7 @@ Since there is not Vagrantfile in the directory, the *vagrant up* command return
 <p align="center"><strong>Figure 10:</strong> Attempting to create VM without Vagrantfile </p>
 
 Therefore, it is important to ensure there is a Vagrantfile present. The best practice is to have a Vagrantfile for each IaC project.
-Vagrantfile is a description of how a VM should be buit and provided. The file is written in Ruby programming language. Vagrant support many OS images, which are referred to as *boxes*. The list OSes supported by Vagrant can be found here: https://portal.cloud.hashicorp.com/vagrant/discover. To specificy the OS image, Vagrant uses *config.vm.box* entry in Vagrantfile. For example, "config.vm.box = "ubuntu/focal64" describes an Ubuntu 20.04 base image for installation.
+Vagrantfile is a description of how a VM should be buit and provided. The file is written in Ruby programming language. Vagrant support many OS images, which are referred to as *boxes*. The list OSes supported by Vagrant can be found [here](https://portal.cloud.hashicorp.com/vagrant/discover). To specificy the OS image, Vagrant uses *config.vm.box* entry in Vagrantfile. For example, "config.vm.box = "ubuntu/focal64" describes an Ubuntu 20.04 base image for installation.
 
 Figure 11 shows a screenshot of a sample Vagrantfile utilized for this tutorial.
 Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
