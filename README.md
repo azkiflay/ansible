@@ -210,11 +210,11 @@ Figure 6 shows the full results of the various ad hoc commands that test connect
 </p>
 <p align="center"><strong>Figure 6:</strong> Checking controller's to hosts using ad hoc command </p>
 
-Having tested the connectivity, lets get some details about the hosts in the inventory.ini file. From the controller node, the "free -h" command can be run on azkiflay_host (192.168.0.11) and the azkiflay_host (192.168.0.10) with the results shown in Figure 7.
+Having tested the connectivity, you can issue ad hoc commands to get some details about the hosts in the inventory.ini file. For example, from the controller, the "free -h" command can be run on the myname_host(*192.168.0.11*), and azkiflay_host (*192.168.0.10*) hosts, obtaining the results shown in Figure 7.
 
 ```bash
   ansible -i inventory.ini azkiflay_host -a "free -h" -u azkiflay
-  ansible -i inventory.ini azkiflay_host -a "free -h" -u azkiflay
+  ansible -i inventory.ini myname_host -a "free -h" -u azkiflay
 ```
 
 <p align="center">
