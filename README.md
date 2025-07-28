@@ -30,7 +30,7 @@ Broadly, the **Ansible workflow** includes the following major steps:
 * **Executes the module(s)** at the host(s).
 
 # Installation
-The following commands can be used to install Ansible on Ubuntu. While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
+The following commands can be used to install Ansible on Ubuntu Operating System (OS). While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
 
 ```bash
 sudo apt update
@@ -39,7 +39,7 @@ sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 ansible --version
 ```
-Instructions to install Ansible in other major operating systems are available [here](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html).
+Instructions to install Ansible in other major OSes are available [here](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html).
 
 # SSH Configuration
 In this section, steps that enable the controller to connect with managed hosts are discussed. </br>
