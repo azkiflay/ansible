@@ -1,6 +1,6 @@
 
 # Introduction to Ansible
-Servers can be configured individually, but doing so is tiring, time-consuming and error prone. Ansible is an open-source Configuration Management (CM) tool that enables system administrators to control state of servers. Puppet, Chef, and Salt are other CM tools. CM tools are used to define and enforce desired state for servers, as well as other networked hosts and devices. For example, software package installation, configuration, permissions, and running the necessary services are among the things Ansible and other CMs can do. 
+Online services and applications are supported by numerous physical and virtual servers. These servers can be configured individually, but doing so is tiring, time-consuming and error prone. Ansible is an open-source Configuration Management (CM) tool that enables system administrators to control state of servers. Puppet, Chef, and Salt are other CM tools. CM tools are used to define and enforce desired state for servers, as well as other networked hosts and devices. For example, software package installation, configuration, permissions, and running the necessary services are among the things Ansible and other CMs can do. 
 
 Ansible uses domain-specific language to describe the state of servers. Moreover, Ansible can be used for deploying software that is ready to be released from a developers team. To achieve that, Ansible copes required files to servers, change configuration and environment variables, and start services in a particular order. 
 
