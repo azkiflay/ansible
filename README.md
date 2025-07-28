@@ -132,7 +132,7 @@ The following shows sample contents of the *inventory.ini* file, listing five se
   192.168.0.14
   [group3]
   192.168.0.12
-  192.168.0.14
+  192.168.0.13
 ```
 
 Alternatively, the same inventory file can be created in YAML.
@@ -155,9 +155,15 @@ Alternatively, the same inventory file can be created in YAML.
         group3:
           hosts:
             192.168.0.12
-            192.168.0.14
+            192.168.0.13
 ```
-By default, there are **all** and **ungrouped** groups in Ansible. The former contains all hosts, while the latter contains hosts that do not belong to another group except the *all* group. In the above example, the host 192.168.0.10 belongs to *ungrouped*. The hosts 192.168.0.11 and 192.168.0.12 are members of *group1*. Hosts 192.168.0.13 and 192.168.0.14 belong to *group2*. Lastly, *group3* consists of hosts 192.168.0.12 and 192.168.0.14. Every host is a member of the *all* group. A host can belong to more than one group. Group memberships of a host are usually determined by *what* the host does, *where* it is located, and *when* in the development pipeline it is utilized. 
+By default, there are **all** and **ungrouped** groups in Ansible. The former contains all hosts, while the latter contains hosts that do not belong to another group except the *all* group. In the above example, the host 192.168.0.10 belongs to *ungrouped*. The hosts 192.168.0.11 and 192.168.0.12 are members of *group1*. Hosts 192.168.0.13 and 192.168.0.14 belong to *group2*. Lastly, *group3* consists of hosts 192.168.0.12 and 192.168.0.14. Every host is a member of the *all* group. A host can belong to more than one group. These group memberships can be view using "*ansible-inventory -i inventory.ini --list".
+
+```bash
+  ansible-inventory -i inventory.ini --list # ansible-inventory -i inventory.yml --list
+```
+
+Group memberships of a host are usually determined by *what* the host does, *where* it is located, and *when* in the development pipeline it is utilized. 
 
 There are ways to create hosts in an inventory using pattern matching, adding a range rather than listing each host. For example, *www[01:50].local* creates *50* hosts, while db-[a:z].local creates *26* hosts.
 
@@ -165,11 +171,10 @@ There are ways to create hosts in an inventory using pattern matching, adding a 
 # Ad Hoc Commands
 The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
 
-Considering the hosts defined in the *inventory.ini* file earlier, let us utilize ad hoc commands to check connectivity of the controller to the managed host. The following two commands do just that.
+Considering the hosts defined in the *inventory.ini* file earlier, let us utilize ad hoc commands to check connectivity of the controller to the managed hosts. The following two commands do just that.
 
 ```bash
-  ansible -i inventory.ini azkiflay_host -m ping -u azkiflay
-  ansible -i inventory.ini azkiflay_host -m ping -u azkiflay
+  ansible -i inventory.ini group2 -m ping -u azkiflay
 ```
  Note the *-i*, *-m*, and *-u* options are used to specify the inventory file at the controller, the command to execute, and a user name at the managed host, respectively.
 
