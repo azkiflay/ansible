@@ -286,7 +286,7 @@ Vagrant is an IaC tool that is utilized for creating and managing VMs. To descri
 ```
 The last command will display a message stating that a "Vagrantfile" has been placed in the current directory as shown in Figure 8 below. 
 <p align="center">
-  <img src="figures/vagrantfile.png" width="300" height="300" />
+  <img src="figures/vagrantfile.png" width="400" height="300" />
 </p>
 <p align="center"><strong>Figure 8:</strong> Vagrantfile </p>
 
@@ -311,7 +311,7 @@ It is important to note that if the Vagrantfile does not exist, *vagrant up* wil
 ```
 Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
 <p align="center">
-  <img src="figures/vagrant_up2.png" width="400" height="400"/>
+  <img src="figures/vagrant_up2.png" width="400" height="300"/>
 </p>
 <p align="center"><strong>Figure 10:</strong> Attempting to create VM without Vagrantfile </p>
 
@@ -321,7 +321,7 @@ Vagrantfile is a description of how a VM should be buit and provided. The file i
 Figure 11 shows a screenshot of a sample Vagrantfile utilized for this tutorial.
 Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
 <p align="center">
-  <img src="figures/vagrantfile2.png" width="300" height="400"/>
+  <img src="figures/vagrantfile2.png" width="400" height="300"/>
 </p>
 <p align="center"><strong>Figure 11:</strong> Vagranfile Example </p>
 
