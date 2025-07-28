@@ -190,11 +190,13 @@ It is also possible to check connectivity to individual managed hosts. For examp
 </p>
 <p align="center"><strong>Figure 5:</strong> Checking connectivity to individual hosts using ad hoc command </p>
 
-The first ad hoc command results in "UNREACHABLE!" error for both hosts. Paricularly, the *msg* part of the results states ""msg": "Failed to connect to the host via ssh: aheb@192.168.0.10: Permission denied (publickey,password)". This makes sense because the local user name *aheb* does not exist on both of the hosts in the inventory.ini file. 
+If there is a problem in connectivity, Ansible provides a clear error mesage. For example, some connection tests failed in the following.
 
 ```bash
   ansible -i inventory.ini all -m ping # all --> target all hosts in that inventory.
 ```
+
+The above ad hoc command results in "UNREACHABLE!" error for both hosts. Paricularly, the *msg* part of the results states ""msg": "Failed to connect to the host via ssh: aheb@192.168.0.10: Permission denied (publickey,password)". This makes sense because the local user name *aheb* does not exist on both of the hosts in the inventory.ini file. 
 
 To tackle this problem, the user name on a host can be specified using the *-u* option, as has been done in the following.
 
@@ -202,7 +204,7 @@ To tackle this problem, the user name on a host can be specified using the *-u* 
   ansible -i inventory.ini all -m ping -u azkiflay # returns error on one of the hosts, but successful on the other host
 ```
 
-Figure 5 shows the full results of the various ad hoc commands that test connectivity of the ansible controller and the hosts in its inventory.ini file.
+Figure 6 shows the full results of the various ad hoc commands that test connectivity of the ansible controller and the hosts in its inventory.ini file.
 <p align="center">
   <img src="figures/ansible_ad_hoc_ping_2.png" width="600" height="400"/>
 </p>
