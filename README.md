@@ -143,18 +143,19 @@ Alternatively, the same inventory file can be created in YAML.
   all:
     hosts:
       192.168.0.10
-    children:
-      group1:
-        hosts:
-          192.168.0.11
-          192.168.0.12
-      group2:
-        hosts:
-          192.168.0.13
-          192.168.0.14
-      group3:
-        192.168.0.12
-        192.168.0.14
+      children:
+        group1:
+          hosts:
+            192.168.0.11
+            192.168.0.12
+        group2:
+          hosts:
+            192.168.0.13
+            192.168.0.14
+        group3:
+          hosts:
+            192.168.0.12
+            192.168.0.14
 ```
 By default, there are *all* and *ungrouped* groups in Ansible. The former contains all hosts, while the latter contains hosts that do not belong to another group except all. In the above example, the host 192.168.0.10 belongs to *ungrouped*. The hosts 192.168.0.11 and 192.168.0.11 are members of *group1*. Hosts 192.168.0.13 and 192.168.0.14 belong to *group2*. Lastly, *group3* consists of hosts 192.168.0.12 and 192.168.0.14. Every host is a member of the *all* group. A host can belong to more than one group. Group memberships of a host are usually determined by *what* the host does, *where* it is located, and *when* in the development pipeline it is utilized.
 
