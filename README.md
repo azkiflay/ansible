@@ -23,9 +23,9 @@ Moreover, unlike other CM systems, Ansible is agentless, meaning it does not req
 
 Broadly, the **Ansible workflow** includes the following major steps:
 * Ansible controller uses *SSH* to connect to a host or groups of hosts.
-* The controller makes changes to host(s) using ad-hoc commands or using an inventory file.
-* Transfers one or more Ansible modules to host(s).
-* Executes the module(s) at the host(s).
+* The controller makes changes to host(s) using **ad hoc commands** or using an **inventory file**.
+* **Transfers** one or more **modules** to host(s).
+* **Executes the module(s)** at the host(s).
 
 # Installation
 The following commands can be used to install Ansible on Ubuntu. While Ubuntu 24.04 LTS was used in this tutorial, the commands will likely work on other Ubuntu distributions with minor changes.
