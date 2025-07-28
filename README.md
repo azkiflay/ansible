@@ -73,7 +73,7 @@ To be able to transfer the controller's public key to the managed hosts, you nee
 
 After ensuring the managed hosts can be accessed using a password-based authentication, the next step is to configure *ssh* to use the private and public keys created earlier for authenticating the Ansible controller with the managed hosts. 
 
-However, the managed hosts do not have the public key of the controller yet. Therefire, you need to transfer the public key to the hosts first. To that end, *ssh-copy-id* command followed by each host's IP address or domain name is used as shown in the following example.
+However, the managed hosts do not have the public key of the controller yet. Therefire, you need to transfer the public key to the hosts first. To do that, *ssh-copy-id* command followed by each host's IP address or domain name is used as shown in the following example.
 
 ```bash
   ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.10 # ssh-copy-id --> uses locally available keys to authorise logins on a remote machine
