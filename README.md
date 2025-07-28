@@ -184,7 +184,7 @@ Considering the hosts defined in the *inventory.ini* file earlier, let us utiliz
 <p align="center"><strong>Figure 4:</strong> Checking controller's to host group using ad hoc command </p>
 
 
-Figure 5 shows the results of the ad hoc ansible tasks above. The ping results indicate that the controller can reach both hosts successfully.
+It is also possible to check connectivity to individual managed hosts. For example, Figure 5 shows the results of such ad hoc ansible task that tests connectivity. The ping results indicate that the controller can reach both hosts successfully.
 <p align="center">
   <img src="figures/ansible_ad_hoc_ping.png" width="600" height="400"/>
 </p>
