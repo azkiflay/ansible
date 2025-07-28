@@ -171,18 +171,24 @@ There are ways to create hosts in an inventory using pattern matching, adding a 
 # Ad Hoc Commands
 The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
 
-Considering the hosts defined in the *inventory.ini* file earlier, let us utilize ad hoc commands to check connectivity of the controller to the managed hosts. The following two commands do just that.
+Considering the hosts defined in the *inventory.ini* file earlier, let us utilize ad hoc commands to check connectivity of the controller to the managed hosts. In the following, hosts in *group2* are tested for connectivity. In this example, you can see that *ping* is used to test reachabiligy of the managed host from the controller. 
 
 ```bash
   ansible -i inventory.ini group2 -m ping -u azkiflay
 ```
- Note the *-i*, *-m*, and *-u* options are used to specify the inventory file at the controller, the command to execute, and a user name at the managed host, respectively.
+ Note the *-i*, *-m*, and *-u* options are used to specify the inventory file at the controller, the command to execute, and a user name at the managed host, respectively. Particularly, the "*-m*" option stands for *module*, requesting for the *ping* module to be executed. The user account on the managed host is identified by the "*-u*" option. The results are shown in Figure 4 below.
 
-Figure 4 shows the results of the ad hoc ansible tasks above. The ping results indicate that the controller can reach both hosts successfully.
+<p align="center">
+  <img src="figures/ansible_ad_hoc_ping_3.png" width="600" height="400"/>
+</p>
+<p align="center"><strong>Figure 4:</strong> Checking controller's to host group using ad hoc command </p>
+
+
+Figure 5 shows the results of the ad hoc ansible tasks above. The ping results indicate that the controller can reach both hosts successfully.
 <p align="center">
   <img src="figures/ansible_ad_hoc_ping.png" width="600" height="400"/>
 </p>
-<p align="center"><strong>Figure 4:</strong> Checking controller's to hosts using ad hoc command </p>
+<p align="center"><strong>Figure 5:</strong> Checking controller's connectivity to hosts using ad hoc command </p>
 
 The first ad hoc command results in "UNREACHABLE!" error for both hosts. Paricularly, the *msg* part of the results states ""msg": "Failed to connect to the host via ssh: aheb@192.168.0.10: Permission denied (publickey,password)". This makes sense because the local user name *aheb* does not exist on both of the hosts in the inventory.ini file. 
 
@@ -200,9 +206,9 @@ Figure 5 shows the full results of the various ad hoc commands that test connect
 <p align="center">
   <img src="figures/ansible_ad_hoc_ping_2.png" width="600" height="400"/>
 </p>
-<p align="center"><strong>Figure 5:</strong> Checking controller's to hosts using ad hoc command </p>
+<p align="center"><strong>Figure 6:</strong> Checking controller's to hosts using ad hoc command </p>
 
-Having tested the connectivity, lets get some details about the hosts in the inventory.ini file. Fromt the controller node, the "free -h" command can be run on azkiflay_host (192.168.0.11) and the azkiflay_host (192.168.0.10) with the results shown in Figure 6.
+Having tested the connectivity, lets get some details about the hosts in the inventory.ini file. Fromt the controller node, the "free -h" command can be run on azkiflay_host (192.168.0.11) and the azkiflay_host (192.168.0.10) with the results shown in Figure 7.
 
 ```bash
   ansible -i inventory.ini azkiflay_host -a "free -h" -u azkiflay
@@ -212,7 +218,7 @@ Having tested the connectivity, lets get some details about the hosts in the inv
 <p align="center">
   <img src="figures/ansible_ad_hoc_host_info.png" width="600" height="400"/>
 </p>
-<p align="center"><strong>Figure 6:</strong> Getting memory details of hosts using ad hoc commands </p>
+<p align="center"><strong>Figure 7:</strong> Getting memory details of hosts using ad hoc commands </p>
 
 
 
