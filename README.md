@@ -181,14 +181,14 @@ Considering the hosts defined in the *inventory.ini* file earlier, let us utiliz
 <p align="center">
   <img src="figures/ansible_ad_hoc_ping_3.png" width="600" height="400"/>
 </p>
-<p align="center"><strong>Figure 4:</strong> Checking controller's to host group using ad hoc command </p>
+<p align="center"><strong>Figure 4:</strong> Checking controller's to a host group using ad hoc command </p>
 
 
 It is also possible to check connectivity to individual managed hosts. For example, Figure 5 shows the results of such ad hoc ansible task that tests connectivity. The ping results indicate that the controller can reach both hosts successfully.
 <p align="center">
   <img src="figures/ansible_ad_hoc_ping.png" width="600" height="400"/>
 </p>
-<p align="center"><strong>Figure 5:</strong> Checking controller's connectivity to hosts using ad hoc command </p>
+<p align="center"><strong>Figure 5:</strong> Checking controller's connectivity to individual hosts using ad hoc command </p>
 
 The first ad hoc command results in "UNREACHABLE!" error for both hosts. Paricularly, the *msg* part of the results states ""msg": "Failed to connect to the host via ssh: aheb@192.168.0.10: Permission denied (publickey,password)". This makes sense because the local user name *aheb* does not exist on both of the hosts in the inventory.ini file. 
 
