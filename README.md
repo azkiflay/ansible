@@ -15,7 +15,7 @@ Moreover, unlike other CM systems, Ansible is agentless, meaning it does not req
 <!-- Using Ansible (User and Group Mangement, Two-factor authentication over SSH, User security policy such as controlling user commands, Host-based Firewall Automation) -->
 
 # Terminology and Workflow
-Ansible terms and workflow are summarized in this seciton.
+Ansible terms and workflow are summarized in this seciton. </br>
 * **Control node**: a Linux/Unix machine where Ansible has been installed. It is possible to have more than one control nodes. A Windows machine cannot be a control node.
 * **Managed nodes (hosts)**: Network devices or servers managed by Ansible. Managed hosts do not have have Ansible installed on them.
 * **Inventory**: a file that contains a list/group of hosts that an Ansible control node works with. Inventory file is created at the control node, specifying details of managed hosts such as IP addresses or domain names. Host information in an inventory file can be organized in groups and subgroups. An inventory file is a text file that is usually created with an **.ini**, **.yml** extension, or no extension.
@@ -42,6 +42,7 @@ ansible --version
 Instructions to install Ansible in other major operating systems are available [here](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html).
 
 # SSH Configuration
+In this section, steps that enable the controller to connect with managed hosts are discussed. </br>
 Before the controller can do anything on managed hosts, it needs to be connected to them. As stated earlier, such network connection is setup using SSH. Therefore, it is important to ensure SSH is available and configured correctly on the controller and managed hosts. Moreover, to avoid a rogue controller taking over the infrastructure, a key-based or passworkd-based authentication must be enforced. In most cases, a key-based authentication is preferrable. This section shows steps to configure public and private keys for SSH, requiring the controller to be authenticated by the managed hosts.
 
 When a key-based authentication is setup, managed hosts can use public key of the controller node to authenticate it. The controller's private key should be kept locally and securely. In other words, the public key should be known to the managed nodes for them to be able to create a message that can be read only using the private key of the controller node. The rests of the authentication process is automatically triggered at each node after the private and public key pair have been configured at the respective hosts.
