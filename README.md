@@ -436,9 +436,10 @@ To run the install_apache.yml playbook:
 ```
 
 # Sample Application
-<!-- Moodle -->
-
+<!-- Moodle 
 ## Local
+-->
+
 ```bash
   ansible-galaxy collection install community.general
   ansible-galaxy collection install community.mysql
