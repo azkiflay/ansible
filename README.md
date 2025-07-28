@@ -71,7 +71,9 @@ To be able to transfer the controller's public key to the managed hosts, you nee
   ssh azkiflay@192.168.0.10 # Replace azkiflay & IP with your own.
 ```
 
-After ensuring the managed hosts can be accessed using a password-based authentication, the next step is to configure *ssh* to use the private and public keys created earlier for authenticating the Ansible controller with the managed hosts. But first we need to transfer the public key to the hosts. To that end, *ssh-copy-id* command followed by each host's IP address or domain name is used as shown in the following example. Note that the public key was created with a custom name earlier. Therefore, that the name of the public key has to be specified using the *-i* option.
+After ensuring the managed hosts can be accessed using a password-based authentication, the next step is to configure *ssh* to use the private and public keys created earlier for authenticating the Ansible controller with the managed hosts. 
+
+However, the managed hosts do not have the public key of the controller yet. Therefire, you need to transfer the public key to the hosts first. To that end, *ssh-copy-id* command followed by each host's IP address or domain name is used as shown in the following example.
 
 ```bash
   ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.10 # ssh-copy-id --> uses locally available keys to authorise logins on a remote machine
@@ -80,8 +82,7 @@ After ensuring the managed hosts can be accessed using a password-based authenti
   ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.13
   ssh-copy-id -i ~/.ssh/azkiflay.pub azkiflay@192.168.0.14
 ```
-
-A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase.
+Note that the public key was created with a custom name earlier. Therefore, that the name of the public key has to be specified using the *-i* option. A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase.
 <p align="center">
   <img src="figures/ssh_copy_id_1.png" width="500" height="200"/>
 </p>
@@ -211,7 +212,7 @@ Having tested the connectivity, lets get some details about the hosts in the inv
 # Playbooks
 While ad hoc commands are useful for running one-off tasks, they are not suitable for many tasks that have to be done in a repeatable manner. That's where *playbooks* come in. Playbooks,  are a set of instructions that aim to bring server(s) to a specific configuration state. Playbooks are written in YAML, and they are to be executed (*played*) on the managed server(s). Playbooks can be subsets of playbooks.
 
-To illustrate, assume we want to remove an existing *Apache2* installation from the 192.168.0.10 host. Shell commands are one way to do that. As discussed earlier, ad hoc commands in ansible can be used to issue one-off shell commands. Alternatively, we can *ssh* to the remote host and run the commands step-by-step to unistall the *Apache2* package. Since the ad hoc commands require setting various options as shown earlier, let us just *ssh* to the host and uninstall *Apache2* as shown below. Let us save the shell script as "*remove_apache.sh*" at the controller. 
+To illustrate, assume you want to remove an existing *Apache2* installation from the 192.168.0.10 host. Shell commands are one way to do that. As discussed earlier, ad hoc commands in ansible can be used to issue one-off shell commands. Alternatively, you can *ssh* to the remote host and run the commands step-by-step to unistall the *Apache2* package. Since the ad hoc commands require setting various options as shown earlier, let us just *ssh* to the host and uninstall *Apache2* as shown below. Let us save the shell script as "*remove_apache.sh*" at the controller. 
 
 ```bash
   #!/bin/bash
@@ -229,7 +230,7 @@ To illustrate, assume we want to remove an existing *Apache2* installation from 
   systemctl status apache2 || echo "apache2 service not found" # Verify apache2 service no longer exists
 ```
 
-However, we want to execute the shell script at the remote host. Therefore, first the file has to be copied over to the managed host. We can use *scp* or *rsync* commands for that purpose as shown in the following. Subsequnetly, the shell script can be run to uninstall the Apache2 software.
+However, you want to execute the shell script at the remote host. Therefore, first the file has to be copied over to the managed host. You can use *scp* or *rsync* commands for that purpose as shown in the following. Subsequnetly, the shell script can be run to uninstall the Apache2 software.
 
 ```bash
   scp remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh # Or --> rsync -avz remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh
@@ -237,7 +238,7 @@ However, we want to execute the shell script at the remote host. Therefore, firs
   sudo sh /tmp/remove_apache.sh # --> If successful, returns "apache2 service not found" message at the end.
 ```
 
-You may be wondering what is the problem with the above shell script. After all, it does what is supposed to do, at least in this case. The problem arises when we want apply a similar set of operation on multiple servers in a repeatable and safe manner. That is where ansible playbooks come in.
+You may be wondering what is the problem with the above shell script. After all, it does what is supposed to do, at least in this case. The problem arises when you want apply a similar set of operation on multiple servers in a repeatable and safe manner. That is where ansible playbooks come in.
 
 To easily compare with the previous commands for unistalling Apache, let us convert the contents of "*remove_apache.sh*" shell script to an equivalent ansible playbook. First, the apache2 package needs to be installed at the 192.168.0.10 machine, as the package was removed by the "*remove_apache.sh" script. Let us save the script in a "*install_apache.sh*". Subsequently, the script is copied over to the target host and run there to install *apache2*.
 
