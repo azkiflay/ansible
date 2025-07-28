@@ -49,7 +49,7 @@ Moreover, to avoid a rogue controller taking over the infrastructure, a key-base
 
 When a key-based authentication is setup, managed hosts use public key of the Ansible controller to authenticate it. The controller's private key should be kept locally and securely. In other words, the public key should be known to the managed nodes for them to be able to create a message that can be read only using the private key of the controller node. The rest of the authentication process is automatically triggered at each node after the private and public key pair have been configured at the respective hosts.
 
-To this end, public and private keys are generated at the controller. Subsequently, the controller's public key has to be transferred to the managed hosts, letting them know about the controller and its public key. This requires a valid username and password to access a managed host and transfer the controller's public key. 
+To this end, public and private keys are generated at the controller. Subsequently, the controller's public key has to be transferred to the managed hosts, letting them know about the controller and its public key. This requires a valid user name and password to access a managed host and transfer the controller's public key. 
 
 Put another way, to configure the controller connection with the managed hosts using a key-based authentication, the controller's private and public keys must be available at the right places. However, before the key-based authentication can be configured, there must be a pre-existing password-based access to the managed hosts from the controller.
 
@@ -65,7 +65,7 @@ The *ssh-keygen* command is widely used to create the private and public keys fo
 ```
 
 ## Transferring the public key to hosts
-To be able to transfer the controller's public key to the managed hosts, you need to have an existing password-based access to the latter. In other words, you should already be able to use *ssh* to login remotely to the managed hosts, using the respective username and password at each host, as shown in the following example.
+To be able to transfer the controller's public key to the managed hosts, you need to have an existing password-based access to the latter. In other words, you should already be able to use *ssh* to login remotely to the managed hosts, using the respective user name and password at each host, as shown in the following example.
 
 ```bash
   ssh azkiflay@192.168.0.10 # ssh-keygen -R 192.168.0.10 # deletes any old key entry from ~/.ssh/known_hosts
@@ -176,13 +176,13 @@ Figure 4 shows the results of the ad hoc ansible tasks above. The ping results i
 </p>
 <p align="center"><strong>Figure 4:</strong> Checking controller's to hosts using ad hoc command </p>
 
-The first ad hoc command results in "UNREACHABLE!" error for both hosts. Paricularly, the *msg* part of the results states ""msg": "Failed to connect to the host via ssh: aheb@192.168.0.10: Permission denied (publickey,password)". This makes sense because the local username *aheb* does not exist on both of the hosts in the inventory.ini file. 
+The first ad hoc command results in "UNREACHABLE!" error for both hosts. Paricularly, the *msg* part of the results states ""msg": "Failed to connect to the host via ssh: aheb@192.168.0.10: Permission denied (publickey,password)". This makes sense because the local user name *aheb* does not exist on both of the hosts in the inventory.ini file. 
 
 ```bash
   ansible -i inventory.ini all -m ping # all --> target all hosts in that inventory.
 ```
 
-To tackle this problem, the username on a host can be specified using the *-u* option, as has been done in the following.
+To tackle this problem, the user name on a host can be specified using the *-u* option, as has been done in the following.
 
 ```bash
   ansible -i inventory.ini all -m ping -u azkiflay # returns error on one of the hosts, but successful on the other host
