@@ -169,7 +169,7 @@ There are ways to create hosts in an inventory using pattern matching, adding a 
 
 
 # Ad Hoc Commands
-The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using ad hoc tasks or playbooks.
+The whole point of automation using Ansible is to realize a change of state at the managed hosts. Restarting a server, creating users, copying files are examples of such changes of state, all of which can be implemented using **ad hoc tasks** or **playbooks**.
 
 Considering the hosts defined in the *inventory.ini* file earlier, let us utilize ad hoc commands to check connectivity of the controller to the managed hosts. In the following, hosts in *group2* are tested for connectivity. In this example, you can see that *ping* is used to test reachabiligy of the managed host from the controller. 
 
@@ -225,7 +225,7 @@ Having tested the connectivity, you can issue ad hoc commands to get some detail
 
 
 # Playbooks
-While ad hoc commands are useful for running one-off tasks, they are not suitable for many tasks that have to be done in a repeatable manner. That's where *playbooks* come in. Playbooks,  are a set of instructions that aim to bring server(s) to a specific configuration state. Playbooks are written in YAML, and they are to be executed (*played*) on the managed server(s). Playbooks can be subsets of playbooks.
+While ad hoc commands are useful for running one-off tasks, they are not suitable for many tasks that have to be done in a repeatable manner. On the other hand, automation, repeatability and version control are some of Ansible's great features. That's where **playbooks** come in. Playbooks,  are a set of instructions that aim to bring server(s) to a specific configuration state. Playbooks are written in YAML, and they are to be executed (*played*) on the managed server(s). Playbooks can be subsets of playbooks.
 
 To illustrate, assume you want to remove an existing *Apache2* installation from the 192.168.0.10 host. Shell commands are one way to do that. As discussed earlier, ad hoc commands in ansible can be used to issue one-off shell commands. Alternatively, you can *ssh* to the remote host and run the commands step-by-step to unistall the *Apache2* package. Since the ad hoc commands require setting various options as shown earlier, let us just *ssh* to the host and uninstall *Apache2* as shown below. Let us save the shell script as "*remove_apache.sh*" at the controller. 
 
