@@ -224,8 +224,6 @@ Having tested the connectivity, you can issue ad hoc commands to get some detail
 
 
 
-
-
 # Provisioning with Vagrant
 This section discusses how infrastructure can be tested locally using Vagrant IaC, VirtualBox, and Ansible as CM to provision a new server. </br>
 
@@ -257,14 +255,15 @@ To run an application within a virtual machine (VM), the VM needs to be created 
 
 ## VirtualBox Installation on Ubuntu 24.04 LTS
 * Download and install VirtualBox for Ubuntu/Debian from https://www.virtualbox.org/wiki/Downloads/. Download the VirtualBox *.deb* package for Ubuntu 20.04 if you would like to follow a similar environment as in this tutorial. For the purposes of this tutorial, the host machine is running Ubuntu 24.04 LTS, while the VM that will be created and managed will be Ubuntu 20.04. The reason for the later is because that is latest distribution available from Vagrant.
-  ```bash 
-  sudo apt update
-  sudo apt install -y build-essential dkms linux-headers-$(uname -r)
-  sudo apt install virtualbox-7.1 # sudo apt remove virtualbox-7.1
-  sudo apt --fix-broken install
-  sudo dpkg -i ~/Downloads/virtualbox-7.1_7.1.12-169651~Ubuntu~focal_amd64.deb # TO ROMOVE: sudo apt remove virtualbox
-  sudo apt install virtualbox-guest-additions-iso # TO REMOVE: sudo apt remove virtualbox-guest-additions-iso # If mismatch with Vagrant's expected version, 'vagrant up' won't work.
-  vagrant plugin install vagrant-vbguest # On your host machine, install the vagrant-vbguest plugin
+  ```bash
+    #!/bin/bash
+    sudo apt update
+    sudo apt install -y build-essential dkms linux-headers-$(uname -r)
+    sudo apt install virtualbox-7.1 # sudo apt remove virtualbox-7.1
+    sudo apt --fix-broken install
+    sudo dpkg -i ~/Downloads/virtualbox-7.1_7.1.12-169651~Ubuntu~focal_amd64.deb # TO ROMOVE: sudo apt remove virtualbox
+    sudo apt install virtualbox-guest-additions-iso # TO REMOVE: sudo apt remove virtualbox-guest-additions-iso # If mismatch with Vagrant's expected version, 'vagrant up' won't work.
+    vagrant plugin install vagrant-vbguest # On your host machine, install the vagrant-vbguest plugin
   ```
 <!-- # Infrastructure as Code -->
 ## Vagrant for Infrastructure as Code
@@ -272,10 +271,11 @@ Vagrant is an IaC tool that is utilized for creating and managing VMs. To descri
 
 ## Vagrant Installation on Ubuntu 24.04 LTS
 ```bash
-wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg # On "Enter new filename: ", input a file name, say 'vagrant'.
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update && sudo apt install vagrant
-vagrant --version # For a successful installation, this returns something like "Vagrant 2.4.7".
+  #!/bin/bash
+  wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg # On "Enter new filename: ", input a file name, say 'vagrant'.
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  sudo apt update && sudo apt install vagrant
+  vagrant --version # For a successful installation, this returns something like "Vagrant 2.4.7".
 ```
 
 ## Testing Vagrant
@@ -347,6 +347,7 @@ With the VM running, we can connect to it using *vagrant ssh*. Figure 12 a scree
 
 <!--
 ```bash
+  #!/bin/bash
   ssh-keygen -t rsa -f ~/.ssh/azkiflay -C azkiflay
   ls -lh ~/.ssh/
   nano ~/.ssh/azkiflay # Private key
@@ -360,10 +361,12 @@ With the VM running, we can connect to it using *vagrant ssh*. Figure 12 a scree
 ```
 -->
 
+
 # Ansible Playbooks
 While ad hoc commands are useful for running one-off tasks, they are not suitable for many tasks that have to be done in a repeatable manner, at different hosts and times. On the other hand, automation, repeatability and version control are some of Ansible's great features. That's where **playbooks** come in. Playbooks are a set of instructions (an *ordered list of tasks*) that aim to bring server(s) to a specific configuration state. Playbooks are written in YAML, and they are to be executed (*played*) on the managed server(s). A playbook can be a subset of another playbook, whose task gets extended due to the addition of the subset playbook.
 
 To illustrate, assume you want to remove an existing *Apache2* installation from the 192.168.0.10 host. Shell commands are one way to do that. As discussed earlier, ad hoc commands in ansible can be used to issue one-off shell commands. Alternatively, you can *ssh* to the remote host and run the commands step-by-step to unistall the *Apache2* package. Since the ad hoc commands require setting various options as shown earlier, let us just *ssh* to the host and uninstall *Apache2* as shown below. Let us save the shell script as "*remove_apache.sh*" at the controller. 
+
 
 <!--
 ```bash
@@ -386,11 +389,15 @@ However, you want to execute the shell script at the remote host. Therefore, fir
 -->
 
 
+<!--
 ```bash
-  scp remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh # Or --> rsync -avz remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh
+  #!/bin/bash
+  scp remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh # Or rsync -avz remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh
   ssh azkiflay@192.168.0.10
-  sudo sh /tmp/remove_apache.sh # --> If successful, returns "apache2 service not found" message at the end.
+  sudo sh /tmp/remove_apache.sh # If successful, returns "apache2 service not found" message at the end.
 ```
+-->
+
 
 <!--
 You may be wondering what is the problem with the above shell script. After all, it does what is supposed to do, at least in this case. The problem arises when you want apply a similar set of operation on multiple servers in a repeatable and safe manner. That is where ansible playbooks come in.
@@ -398,6 +405,8 @@ You may be wondering what is the problem with the above shell script. After all,
 To easily compare with the previous commands for unistalling Apache, let us convert the contents of "*remove_apache.sh*" shell script to an equivalent ansible playbook. First, the apache2 package needs to be installed at the 192.168.0.10 machine, as the package was removed by the "*remove_apache.sh" script. Let us save the script in a "*install_apache.sh*". Subsequently, the script is copied over to the target host and run there to install *apache2*.
 -->
 
+
+<!--
 ```bash
   #!/bin/bash
   echo "=== Updating package list ==="
@@ -416,31 +425,44 @@ To easily compare with the previous commands for unistalling Apache, let us conv
   systemctl status apache2 --no-pager || echo "Apache2 service not found"
   echo "=== Apache2 reinstallation complete! ==="
 ```
+-->
 
-```bash
-  rsync -avz install_apache.sh azkiflay@192.168.0.10:/tmp/install_apache.sh # Or --> scp remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh
+
+<!--
+  ```bash
+  #!/bin/bash
+  rsync -avz install_apache.sh azkiflay@192.168.0.10:/tmp/install_apache.sh # Or scp remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh
   ssh azkiflay@192.168.0.10
-  sudo sh /tmp/install_apache.sh # --> If successful, returns "apache2 service not found" message at the end.
+  sudo sh /tmp/install_apache.sh # If successful, returns "apache2 service not found" message at the end.
 ```
+-->
 
+<!--
 Run the remove_apache.yml playbook as follows:
-
 ```bash
+  #!/bin/bash
   ansible-playbook -i inventory.ini install_apache.yml --list-hosts # View affected hosts
-  ansible-playbook -i inventory.ini remove_apache.yml -u azkiflay --become  --ask-become-pass # state: absent --> to remove package
+  ansible-playbook -i inventory.ini remove_apache.yml -u azkiflay --become  --ask-become-pass # state: absent to remove package
 ```
+-->
 
+<!--
 To run the install_apache.yml playbook:
 ```bash
-  ansible-playbook -i inventory.ini install_apache.yml -u azkiflay --become  --ask-become-pass # state: present, state: latest --> to install package
+  #!/bin/bash
+  ansible-playbook -i inventory.ini install_apache.yml -u azkiflay --become  --ask-become-pass # state: present, state: latest -- to install package
 ```
+-->
+
 
 <!-- # Sample Application -->
 <!-- Moodle 
 ## Local
 -->
 
+<!--
 ```bash
+  #!/bin/bash
   ansible-galaxy collection install community.general
   ansible-galaxy collection install community.mysql
   ssh azkiflay@192.68.0.11
@@ -452,12 +474,20 @@ To run the install_apache.yml playbook:
   ansible-playbook -i inventory.ini playbook.yml -u azkiflay --become --ask-become-pass --limit azkiflay_host
   ansible-playbook -i inventory.ini playbook.yml --become -ask-become-pass --limit azkiflay_vm
 ```
+-->
 
+
+<!--
 ```bash
+  #!/bin/bash
   ansible-playbook -i inventory.ini playbook.yml --limit ubuntuserver_vm1 -u azkiflay --become --ask-become-pass --check
 ```
+-->
 
+
+<!--
 ```bash
+  #!/bin/bash
   vagrant box add geerlingguy/rockylinux8 # Downloads Rocky Linux for virtualbox
   vagrant init geerlingguy/rockylinux8 # Creates `Vagrantfile` in current directory
   vagrant up
@@ -466,6 +496,8 @@ To run the install_apache.yml playbook:
   vagrant halt
   vagrant destroy
 ```
+-->
+
 
 <!--
 # Future
@@ -483,5 +515,4 @@ To run the install_apache.yml playbook:
 * Ansible Website, https://docs.ansible.com/, Accessed 24 July - 8 August, 2025
 * DevOps for the Desperate A Hands-on Survival Guide, Bradley Smith, No Starch Press, 2022
 * Moodle: https://docs.moodle.org/500/en/Step-by-step_Installation_Guide_for_Ubuntu
-
 -->
