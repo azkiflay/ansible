@@ -284,13 +284,13 @@ vagrant --version # For a successful installation, this returns something like "
   cd playbooks
   vagrant init ubuntu/focal64
 ```
-The last command will display a message stating that a "Vagrantfile" has been placed in the current directory as shown in Figure 1 below. 
+The last command will display a message stating that a "Vagrantfile" has been placed in the current directory as shown in Figure 8 below. 
 <p align="center">
   <img src="figures/vagrantfile.png" width="300" height="300" />
 </p>
-<p align="center"><strong>Figure 1:</strong> Vagrantfile </p>
+<p align="center"><strong>Figure 8:</strong> Vagrantfile </p>
 
-The following *vagrant up* command creates the VM according to the Vagrantfile. Figure 2 shows the progress of creating the VM infrastructure.
+The following *vagrant up* command creates the VM according to the Vagrantfile. Figure 9 shows the progress of creating the VM infrastructure.
 
 ```bash
   vagrant up
@@ -298,7 +298,7 @@ The following *vagrant up* command creates the VM according to the Vagrantfile. 
 <p align="center">
   <img src="figures/vagrant_up.png" width="400" height="300"/>
 </p>
-<p align="center"><strong>Figure 2:</strong> Creating as per Vagrantfile </p>
+<p align="center"><strong>Figure 9:</strong> Creating as per Vagrantfile </p>
 
 It can be seen that "ubuntu/focal" has been imported for installation. Other available Ubuntu distributions that can be installed using Vagrant are availabe at https://portal.cloud.hashicorp.com/vagrant/discover. Moreover, the VM has been given a name that starts with the current working directory (*playbooks*) followed by *default* and a number string. After other similar configurations are made, the VM is finally booted up and ready for use.
 
@@ -309,21 +309,21 @@ It is important to note that if the Vagrantfile does not exist, *vagrant up* wil
   ls -a # No Vagrantfile here
   vagrant up
 ```
-Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 3.
+Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
 <p align="center">
   <img src="figures/vagrant_up2.png" width="300" height="300"/>
 </p>
-<p align="center"><strong>Figure 3:</strong> Attempting to create VM without Vagrantfile </p>
+<p align="center"><strong>Figure 10:</strong> Attempting to create VM without Vagrantfile </p>
 
 Therefore, it is important to ensure there is a Vagrantfile present. The best practice is to have a Vagrantfile for each IaC project.
 Vagrantfile is a description of how a VM should be buit and provided. The file is written in Ruby programming language. Vagrant support many OS images, which are referred to as *boxes*. The list OSes supported by Vagrant can be found here: https://portal.cloud.hashicorp.com/vagrant/discover. To specificy the OS image, Vagrant uses *config.vm.box* entry in Vagrantfile. For example, "config.vm.box = "ubuntu/focal64" describes an Ubuntu 20.04 base image for installation.
 
-Figure 4 shows a screenshot of a sample Vagrantfile utilized for this tutorial.
-Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 3.
+Figure 11 shows a screenshot of a sample Vagrantfile utilized for this tutorial.
+Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
 <p align="center">
   <img src="figures/vagrantfile2.png" width="300" height="400"/>
 </p>
-<p align="center"><strong>Figure 4:</strong> Vagranfile Example </p>
+<p align="center"><strong>Figure 11:</strong> Vagranfile Example </p>
 
 In the above sample Vagrantfile, it can be seen that the VM's hostname has been set to "azkiflay", while the *network* has been configure *public_network* to use a *bridge* to the hosts Wi-Fi interface (*wlo1*).
 
@@ -338,13 +338,14 @@ The following commands show various changes on a VM instance.
   vagrant ssh # Connects to the VM over a Secure Shell (SSH)
 ```
 
-With the VM running, we can connect to it using *vagrant ssh*. Figure 5 a screenshot of a connection to the Ubuntu 20.04 VM running inside VirtualBox as discussed earlier. Basic OS details of the VM can be seen after the connection using SSH.
+With the VM running, we can connect to it using *vagrant ssh*. Figure 12 a screenshot of a connection to the Ubuntu 20.04 VM running inside VirtualBox as discussed earlier. Basic OS details of the VM can be seen after the connection using SSH.
 <p align="center">
   <img src="figures/vagrant_ssh.png" width="300" height="400"/>
 </p>
-<p align="center"><strong>Figure 5:</strong> SSH connection to the VM </p>
+<p align="center"><strong>Figure 12:</strong> SSH connection to the VM </p>
 
 
+<!--
 ```bash
   ssh-keygen -t rsa -f ~/.ssh/azkiflay -C azkiflay
   ls -lh ~/.ssh/
@@ -357,13 +358,14 @@ With the VM running, we can connect to it using *vagrant ssh*. Figure 5 a screen
   ssh -i ~/.ssh/azkiflay -p 2222 azkiflay@localhost
   su vagrant # Change to vagrant user. Default password: vagrant
 ```
-
+-->
 
 # Playbooks
 While ad hoc commands are useful for running one-off tasks, they are not suitable for many tasks that have to be done in a repeatable manner, at different hosts and times. On the other hand, automation, repeatability and version control are some of Ansible's great features. That's where **playbooks** come in. Playbooks are a set of instructions (an *ordered list of tasks*) that aim to bring server(s) to a specific configuration state. Playbooks are written in YAML, and they are to be executed (*played*) on the managed server(s). A playbook can be a subset of another playbook, whose task gets extended due to the addition of the subset playbook.
 
 To illustrate, assume you want to remove an existing *Apache2* installation from the 192.168.0.10 host. Shell commands are one way to do that. As discussed earlier, ad hoc commands in ansible can be used to issue one-off shell commands. Alternatively, you can *ssh* to the remote host and run the commands step-by-step to unistall the *Apache2* package. Since the ad hoc commands require setting various options as shown earlier, let us just *ssh* to the host and uninstall *Apache2* as shown below. Let us save the shell script as "*remove_apache.sh*" at the controller. 
 
+<!--
 ```bash
   #!/bin/bash
   apache2 -v
@@ -381,6 +383,8 @@ To illustrate, assume you want to remove an existing *Apache2* installation from
 ```
 
 However, you want to execute the shell script at the remote host. Therefore, first the file has to be copied over to the managed host. You can use *scp* or *rsync* commands for that purpose as shown in the following. Subsequnetly, the shell script can be run to uninstall the Apache2 software.
+-->
+
 
 ```bash
   scp remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh # Or --> rsync -avz remove_apache.sh azkiflay@192.168.0.10:/tmp/remove_apache.sh
@@ -388,9 +392,11 @@ However, you want to execute the shell script at the remote host. Therefore, fir
   sudo sh /tmp/remove_apache.sh # --> If successful, returns "apache2 service not found" message at the end.
 ```
 
+<!--
 You may be wondering what is the problem with the above shell script. After all, it does what is supposed to do, at least in this case. The problem arises when you want apply a similar set of operation on multiple servers in a repeatable and safe manner. That is where ansible playbooks come in.
 
 To easily compare with the previous commands for unistalling Apache, let us convert the contents of "*remove_apache.sh*" shell script to an equivalent ansible playbook. First, the apache2 package needs to be installed at the 192.168.0.10 machine, as the package was removed by the "*remove_apache.sh" script. Let us save the script in a "*install_apache.sh*". Subsequently, the script is copied over to the target host and run there to install *apache2*.
+-->
 
 ```bash
   #!/bin/bash
@@ -458,6 +464,7 @@ To run the install_apache.yml playbook:
   vagrant destroy
 ```
 
+<!--
 # Future
 * Packer: Build the base images (optional).
 * Terraform: Provisions infrastructure (VMs, networks, cloud services), and deploy the image at scale in cloud or on-prem.
@@ -473,3 +480,5 @@ To run the install_apache.yml playbook:
 * Ansible Website, https://docs.ansible.com/, Accessed 24 July - 8 August, 2025
 * DevOps for the Desperate A Hands-on Survival Guide, Bradley Smith, No Starch Press, 2022
 * Moodle: https://docs.moodle.org/500/en/Step-by-step_Installation_Guide_for_Ubuntu
+
+-->
