@@ -135,7 +135,7 @@ The following shows sample contents of the *inventory.ini* file, listing five se
   192.168.0.14
 ```
 
-The same inventory file can be created in YAML.
+Alternatively, the same inventory file can be created in YAML.
 ```bash
   nano ./inventory.yml
 ```
