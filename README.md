@@ -16,10 +16,10 @@ Moreover, unlike other CM systems, Ansible is agentless, meaning it does not req
 # Terminology and Workflow
 * **Control node**: a Linux/Unix machine where Ansible has been installed. It is possible to have more than one control nodes. A Windows machine cannot be a control node.
 * **Managed nodes (hosts)**: Network devices or servers managed by Ansible. Managed hosts do not have have Ansible installed on them.
-* **Inventory**: a file that contains a list/group of hosts that an Ansible control node works with. Inventory file is created at the control node, specifying details of managed hosts such as IP addresses or domain names. Host information in an inventory file can be organized in groups and subgroups.
+* **Inventory**: a file that contains a list/group of hosts that an Ansible control node works with. Inventory file is created at the control node, specifying details of managed hosts such as IP addresses or domain names. Host information in an inventory file can be organized in groups and subgroups. An inventory file can have an **.ini**, **.yml** extension, or no extension at all as long as it is a text file. 
 * **Module**: a piece of code that Ansible executes to perform specific actions on different operating systems and environments. One more more modules can be used in *tasks* and *playbooks*.
 * **Tasks**: Units of action in Ansible. For example, a command to install software on a managed host is a task.
-* **Playbook**: an *ordered* lists of tasks that can be run by the control node to configure remote hosts. Playbooks are run in control node to configure remote hosts. YAML is used to write playbooks, which can include tasks and variables.
+* **Playbook**: an *ordered lists of tasks* that can be run by the control node to configure remote hosts. Playbooks are run in control node to configure remote hosts. YAML is used to write playbooks, which can include tasks and variables.
 
 Broadly, the Ansible workflow includes the following major steps:
 * Ansible controller uses *SSH* to connect to a host or groups of hosts.
