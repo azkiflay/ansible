@@ -98,13 +98,13 @@ However, the managed hosts do not have the public key of the controller yet. The
 ```
 Note that the public key was created with a custom name earlier. Therefore, that the name of the public key has to be specified using the *-i* option. A passphrase is requested to access the private key, "azkiflay" in this case, as shown in Figure 1. The password of the user account where the key pair were created is the passphrase. Enter that to proceed.
 <p align="center">
-  <img src="figures/ssh_copy_id_1.png" style="max-width:60%; height:auto;">
+  <img src="figures/ssh_copy_id_1.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 1:</strong> Unlocking the private key </p>
 
 Following a successful entry of a password, the public key of the Ansible controller is added to the managed host as depicted in Figure 2.
 <p align="center">
-  <img src="figures/ssh_copy_id_2.png" style="max-width:60%; height:auto;">
+  <img src="figures/ssh_copy_id_2.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 2:</strong> Transferring public key to a remote host </p>
 
@@ -123,7 +123,7 @@ The reason for the passwordless login is because the public key of the controlle
 Figure 3 depicts that the Ansible controller has been successfully authenticated by the managed host (192.168.0.10). This was possible because the host has the controller's public key in its *authorized_keys* files, also shown in the second line of the "* cat ~/.ssh/authorized_keys*"" command issued at the managed host.
 
 <p align="center">
-  <img src="figures/ssh_public_key_login.png" style="max-width:60%; height:auto;">
+  <img src="figures/ssh_public_key_login.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 3:</strong> Public key-based access to a managed host </p>
 
@@ -196,14 +196,14 @@ Considering the hosts defined in the *inventory.ini* file earlier, let us utiliz
  Note the *-i*, *-m*, and *-u* options are used to specify the inventory file at the controller, the command to execute, and a user name at the managed host, respectively. Particularly, the "*-m*" option stands for *module*, requesting for the *ping* module to be executed. The user account on the managed host is identified by the "*-u*" option. The results are shown in Figure 4 below.
 
 <p align="center">
-  <img src="figures/ansible_ad_hoc_ping_3.png" style="max-width:60%; height:auto;">
+  <img src="figures/ansible_ad_hoc_ping_3.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 4:</strong> Checking controller's to a host group using ad hoc command </p>
 
 
 It is also possible to check connectivity to individual managed hosts. For example, Figure 5 shows the results of such ad hoc ansible task that tests connectivity. The ping results indicate that the controller can reach both hosts successfully.
 <p align="center">
-  <img src="figures/ansible_ad_hoc_ping.png" style="max-width:60%; height:auto;">
+  <img src="figures/ansible_ad_hoc_ping.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 5:</strong> Checking connectivity to individual hosts using ad hoc command </p>
 
@@ -223,7 +223,7 @@ To tackle this problem, the user name on a host can be specified using the *-u* 
 
 Figure 6 shows the full results of the various ad hoc commands that test connectivity of the ansible controller and the hosts in its inventory.ini file.
 <p align="center">
-  <img src="figures/ansible_ad_hoc_ping_2.png" style="max-width:60%; height:auto;">
+  <img src="figures/ansible_ad_hoc_ping_2.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 6:</strong> Checking controller's to hosts using ad hoc command </p>
 
@@ -235,7 +235,7 @@ Having tested the connectivity, you can issue ad hoc commands to get some detail
 ```
 
 <p align="center">
-  <img src="figures/ansible_ad_hoc_host_info.png" style="max-width:60%; height:auto;">
+  <img src="figures/ansible_ad_hoc_host_info.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 7:</strong> Getting memory details of hosts using ad hoc commands </p>
 
@@ -303,7 +303,7 @@ Vagrant is an IaC tool that is utilized for creating and managing VMs. To descri
 ```
 The last command will display a message stating that a "Vagrantfile" has been placed in the current directory as shown in Figure 8 below. 
 <p align="center">
-  <img src="figures/vagrantfile.png" style="max-width:60%; height:auto;">
+  <img src="figures/vagrantfile.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 8:</strong> Vagrantfile </p>
 
@@ -313,7 +313,7 @@ The following *vagrant up* command creates the VM according to the Vagrantfile. 
   vagrant up
 ``` 
 <p align="center">
-  <img src="figures/vagrant_up.png" style="max-width:60%; height:auto;">
+  <img src="figures/vagrant_up.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 9:</strong> Creating as per Vagrantfile </p>
 
@@ -328,7 +328,7 @@ It is important to note that if the Vagrantfile does not exist, *vagrant up* wil
 ```
 Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
 <p align="center">
-  <img src="figures/vagrant_up2.png" style="max-width:60%; height:auto;">
+  <img src="figures/vagrant_up2.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 10:</strong> Attempting to create VM without Vagrantfile </p>
 
@@ -338,7 +338,7 @@ Vagrantfile is a description of how a VM should be buit and provided. The file i
 Figure 11 shows a screenshot of a sample Vagrantfile utilized for this tutorial.
 Since there is not Vagrantfile in the directory, the *vagrant up* command returns the results shown in Figure 10.
 <p align="center">
-  <img src="figures/vagrantfile2.png" style="max-width:60%; height:auto;">
+  <img src="figures/vagrantfile2.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 11:</strong> Vagranfile Example </p>
 
@@ -357,7 +357,7 @@ The following commands show various changes on a VM instance.
 
 With the VM running, we can connect to it using *vagrant ssh*. Figure 12 a screenshot of a connection to the Ubuntu 20.04 VM running inside VirtualBox as discussed earlier. Basic OS details of the VM can be seen after the connection using SSH.
 <p align="center">
-  <img src="figures/terraform_init.png" style="max-width:60%; height:auto;">
+  <img src="figures/terraform_init.png" style="max-width:50%; height:auto;">
 </p>
 <p align="center"><strong>Figure 12:</strong> SSH connection to the VM </p>
 
