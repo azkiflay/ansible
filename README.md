@@ -1,3 +1,20 @@
+**Contents**
+- [Introduction](#introduction)
+- [Terminology and Workflow](#terminology-and-workflow)
+- [Installation](#installation)
+- [SSH Configuration](#ssh-configuration)
+  - [Creating public and private keys](#creating-public-and-private-keys)
+  - [Transferring the public key to hosts](#transferring-the-public-key-to-hosts)
+- [Inventory](#inventory)
+- [Ad Hoc Commands](#ad-hoc-commands)
+- [Provisioning with Vagrant](#provisioning-with-vagrant)
+  - [Setting Up a Virtual Machine](#setting-up-a-virtual-machine)
+  - [VirtualBox Installation on Ubuntu 24.04 LTS](#virtualbox-installation-on-ubuntu-2404-lts)
+  - [Vagrant for Infrastructure as Code](#vagrant-for-infrastructure-as-code)
+  - [Vagrant Installation on Ubuntu 24.04 LTS](#vagrant-installation-on-ubuntu-2404-lts)
+  - [Testing Vagrant](#testing-vagrant)
+- [Ansible Playbooks](#ansible-playbooks)
+
 
 # Introduction
 This section introduces Ansible, a popular Configuration Management (CM) tool. </br>
